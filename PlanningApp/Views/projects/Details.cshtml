@@ -1,0 +1,67 @@
+﻿@model PlanningApp.Models.project
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details of BC @Html.DisplayFor(model => model.projectID)</h2>
+
+<div>
+    @*<h4>project</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Site Name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.siteName)
+        </dd>
+
+        <dt>
+           Address
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.siteAddress1)
+        </dd>
+
+        <dt>
+            Address cont
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.siteAddress2)
+        </dd>
+
+        <dt>
+            Address cont
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.siteAddress3)
+        </dd>
+
+        <dt>
+            Post Code
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sitePostCode)
+        </dd>
+
+        <dt>
+            Delivery Restrictions
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.deliveryRestrictions)
+        </dd>
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.projectID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

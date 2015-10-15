@@ -1,0 +1,104 @@
+﻿
+@model PagedList.IPagedList<PlanningApp.Models.vendorLocationDetail>
+@using PagedList.Mvc;
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Vendor Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm())
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString")
+        <input type="submit" value="Search"/>
+    </p>
+}
+<div class="table-responsive">
+    <table class="table table-hover">
+        <tr>
+            <th>
+                @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm })
+            </th>
+            <th>
+                @Html.Label("Address")
+            </th>
+            <th>
+                @Html.Label("Address cont")
+            </th>
+            <th>
+                @Html.ActionLink("Town/City", "Index", new { sortOrder = ViewBag.NameSortParm})
+            </th>
+            <th>
+                @Html.Label("County")
+            </th>
+            <th>
+                @Html.Label("PostCode")
+            </th>
+            <th>
+                @Html.Label("Phone Number")
+            </th>
+            <th>
+                @Html.Label("Contact")
+            </th>
+            <th>
+                @Html.Label("Email Address")
+            </th>
+            <th>
+                @Html.Label("Head Office")
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.vendorName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.vendorAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.vendorAddress2)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.vendorCity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.vendorCounty)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.vendorPostCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.vendorPhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.vendorContact)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.vendorEmail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.vendorHQTable.vendorLocationID)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { vendorLocationID = item.vendorLocationID, vendorNumber = item.vendorNumber})
+                    @Html.ActionLink("Details", "Details", new { vendorLocationID = item.vendorLocationID, vendorNumber = item.vendorNumber})
+                    @Html.ActionLink("Delete", "Delete", new { vendorLocationID = item.vendorLocationID, vendorNumber = item.vendorNumber })
+                </td>
+            </tr>
+    }
+
+    </table>
+<br />
+    @* Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount *@
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter}))
+
+</div>

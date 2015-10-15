@@ -1,0 +1,52 @@
+﻿    @model PagedList.IPagedList<PlanningApp.Models.constructionStaff>
+    @using PagedList.Mvc;
+
+    @{
+        ViewBag.Title = "Index";
+    }
+
+    <h2>Construction Staff Index</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    @using (Html.BeginForm("Index", "constructionStaffs", FormMethod.Get))
+    {
+        <p>
+            Find by Staff Member: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+            <input type="submit" value="Search" />
+        </p>
+    }
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.ActionLink("Employee", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+                </th>
+
+                <th>
+                    Email Address
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.userName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.emailAddress)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.staffID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.staffID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.staffID })
+                    </td>
+                </tr>
+                }
+
+        </table>
+
+
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

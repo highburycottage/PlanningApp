@@ -1,0 +1,75 @@
+﻿@model IEnumerable<PlanningApp.Models.vendorHQTable>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Vendor HQs - Index</h2>
+<h5>Click on the Details option for a list of the Branches</h5>
+<p>
+    @Html.ActionLink("Create New HQ ONLY", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Location ID
+        </th>
+        <th>
+            Address
+        </th>
+        <th>
+            Address cont
+        </th>
+        <th>
+            City
+        </th>
+        <th>
+            County
+        </th>
+        <th>
+            Post Code
+        </th>
+        <th>
+            Phone Number
+        </th>
+        <th>
+            Contact
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.vendorLocationID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.vendorAddress1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.vendorAddress2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.vendorCity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.vendorCounty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.vendorPostCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.vendorPhoneNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.vendorContact)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.vendorID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.vendorID }) @*|
+            @Html.ActionLink("Delete", "Delete", new { id=item.vendorID }) *@
+        </td>
+    </tr>
+}
+
+</table>

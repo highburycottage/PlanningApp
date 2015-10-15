@@ -1,0 +1,80 @@
+﻿@model PlanningApp.Models.project
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>project</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.siteName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.siteName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.siteAddress1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.siteAddress1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.siteAddress2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.siteAddress2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.siteAddress3)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.siteAddress3)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sitePostCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sitePostCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.deliveryRestrictions)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.deliveryRestrictions)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SSMA_TimeStamp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SSMA_TimeStamp)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

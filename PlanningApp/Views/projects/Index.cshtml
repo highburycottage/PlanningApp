@@ -1,0 +1,65 @@
+﻿@model IEnumerable<PlanningApp.Models.project>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>MBC Projects - Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Site Name
+        </th>
+        <th>
+           Site Address
+        </th>
+        <th>
+            Address cont
+        </th>
+        <th>
+           Address Cont
+        </th>
+        <th>
+            Post Code
+        </th>
+        <th>
+            Delivery Restrictions
+        </th>
+
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.siteName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.siteAddress1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.siteAddress2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.siteAddress3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sitePostCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.deliveryRestrictions)
+        </td>
+
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.projectID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.projectID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.projectID })
+        </td>
+    </tr>
+}
+
+</table>

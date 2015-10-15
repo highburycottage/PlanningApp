@@ -1,0 +1,99 @@
+﻿@model PlanningApp.Models.vendorLocationDetail
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Vendor Location Details</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.Label("Vendor")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.vendorName)
+        </dd>
+
+        <dt>
+            @Html.Label("Address")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.vendorAddress)
+        </dd>
+
+        <dt>
+            @Html.Label("Address cont")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.vendorAddress2)
+        </dd>
+
+        <dt>
+            @Html.Label("Town/City")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.vendorCity)
+        </dd>
+
+        <dt>
+            @Html.Label("County")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.vendorCounty)
+        </dd>
+
+        <dt>
+            @Html.Label("Post Code")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.vendorPostCode)
+        </dd>
+
+        <dt>
+            @Html.Label("Phone Number")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.vendorPhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.Label("Contact")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.vendorContact)
+        </dd>
+
+        <dt>
+            @Html.Label("Email Address")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.vendorEmail)
+        </dd>
+
+        @*       <dt>
+                @Html.DisplayNameFor(model => model.vendorHQTable.vendorLocationID)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.vendorHQTable.vendorLocationID)
+            </dd> *@
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { vendorLocationID = Model.vendorLocationID, vendorNumber = Model.vendorNumber }) |
+    @* @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) | *@
+    @Html.ActionLink("Back to List", "Index")
+</p>

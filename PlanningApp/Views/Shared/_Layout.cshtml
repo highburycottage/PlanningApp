@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - MBC Planning Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/foundation/css")
+
+    <meta name="description" content="The description of my page" />
+</head>
+<body>
+    <div id="myNavbar" class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Main Menu", "Index", "Home")</li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">General <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("MBC Projects", "Index", "Projects")</li>
+                            <li>@Html.ActionLink("Drawing Register", "DrawingRegister", "DrawingRegister")</li>
+                            <li><a href="#">Plant Hire</a></li>
+                            <li>@Html.ActionLink("Construction Staff", "Index", "constructionStaffs")</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Vendors/Contacts <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("List Vendors HQs", "Index", "vendorHQTables")</li>
+                            <li>@Html.ActionLink("List All Vendors", "index", "vendorLocationDetails")</li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink("Create New HQ", "Create", "vendorHQTables")</li>
+                            <li>@Html.ActionLink("Create New Vendor", "Create", "vendorLocationDetails")</li>
+                            <!-- <li><a href="#">C</a></li> -->
+                        </ul>
+                    </li>
+                    <!-- <li class="dropdown">
+                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Contracts <span class="caret"</span></a>
+                         <ul class="dropdown-menu">
+                             <li><a href="#">D</a></li>
+                             <li><a href="#">E</a></li>
+                             <li><a href="#">F</a></li>
+                         </ul>
+                     </li> -->
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li><p class="nav navbar-text navbar-right">Hello, @User.Identity.Name!</p></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Marshall Holdings Ltd </p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/foundation")
+    <script>
+        $(document).foundation();
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
