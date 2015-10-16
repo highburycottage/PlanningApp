@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PlanningApp.Models;
+using PlanningApp.ViewModel;
 
 namespace PlanningApp.Controllers
 {
@@ -65,12 +66,25 @@ namespace PlanningApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            project project = db.projects.Find(id);
-            if (project == null)
+
+            var staffViewModel = new StaffViewModel
             {
+                project = db.projects.Include(i => i.constructionStaffs).First(i => i.projectID == id),
+            };
+
+            if (staffViewModel.project == null)
                 return HttpNotFound();
-            }
-            return View(project);
+
+            var allProjectStaffList = db.constructionStaffs.ToList();
+            staffViewModel.AllProjectStaff = allProjectStaffList.Select(o => new SelectListItem
+            {
+                Text = o.userName,
+                Value = o.staffID.ToString()
+            });
+
+            ViewBag.projectID =
+                    new SelectList(db.projects, "staffID", "FullName", staffViewModel.project.projectID);
+            return View(staffViewModel);
         }
 
         // POST: projects/Edit/5

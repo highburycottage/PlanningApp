@@ -1,5 +1,6 @@
 ﻿@model PlanningApp.Models.project
 
+
 @{
     ViewBag.Title = "Details";
 }
@@ -19,7 +20,7 @@
         </dd>
 
         <dt>
-           Address
+            Address
         </dt>
 
         <dd>
@@ -58,6 +59,30 @@
             @Html.DisplayFor(model => model.deliveryRestrictions)
         </dd>
 
+        <dt>
+            Construction Team
+        </dt>
+
+        <dd>
+            <table class="noBorder">
+                @foreach (var tag in Model.constructionStaffs)
+                {
+                    <tr>
+                        <td>
+                            @tag.userName
+                        </td>
+                    </tr>
+                }
+            </table>
+
+
+
+
+
+
+
+        </dd>
+
 
     </dl>
 </div>
@@ -65,3 +90,6 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.projectID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

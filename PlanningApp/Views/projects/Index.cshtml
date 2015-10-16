@@ -30,10 +30,15 @@
             Delivery Restrictions
         </th>
 
+        <th>
+            Project Staff
+        </th>
+
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.siteName)
@@ -53,11 +58,13 @@
         <td>
             @Html.DisplayFor(modelItem => item.deliveryRestrictions)
         </td>
-
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.projectID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.projectID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.projectID })
+            @Html.ListBox("staffID", new SelectList(item.constructionStaffs, "staffID", "userName"),htmlAttributes: new { @class = "form-control " })
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.projectID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.projectID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.projectID })
         </td>
     </tr>
 }
