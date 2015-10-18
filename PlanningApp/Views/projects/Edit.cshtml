@@ -1,10 +1,10 @@
 ﻿@model PlanningApp.ViewModel.StaffViewModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit BC" ;
 }
 
-<h2>Edit</h2>
+<h2>Edit BC @Html.DisplayFor(model => model.project.projectID) </h2>
 
 
 @using (Html.BeginForm())
@@ -12,7 +12,7 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>project</h4>
+        @*<h4>project</h4>*@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.project.projectID)
@@ -68,7 +68,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.AllProjectStaff, "Project Team", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.ListBoxFor(m => m.SelectedConstructionStaff, Model.AllProjectStaff, htmlAttributes: new { @class = "form-control chzn-select" })
+                @Html.ListBoxFor(m => m.SelectedConstructionStaff, Model.AllProjectStaff, new { htmlAttributes = new { @class = "form-control chzn-select" } })
                 
             </div>
         </div>
@@ -87,4 +87,7 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 }
