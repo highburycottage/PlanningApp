@@ -82,8 +82,7 @@ namespace PlanningApp.Controllers
                 Value = o.staffID.ToString()
             });
 
-            ViewBag.projectID =
-                    new SelectList(db.projects, "staffID", "FullName", staffViewModel.project.projectID);
+            ViewBag.projectID = new SelectList(db.projects, "staffID", "FullName", staffViewModel.project.projectID);
             return View(staffViewModel);
         }
 
@@ -92,16 +91,55 @@ namespace PlanningApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "projectID,siteName,siteAddress1,siteAddress2,siteAddress3,sitePostCode,deliveryRestrictions,SSMA_TimeStamp")] project project)
+        //public ActionResult Edit([Bind(Include = "projectID,siteName,siteAddress1,siteAddress2,siteAddress3,sitePostCode,deliveryRestrictions,SSMA_TimeStamp")] project project)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(project).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(project);
+        //}
+        public ActionResult Edit(StaffViewModel staffViewModel)
         {
+
+            if (staffViewModel == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
             if (ModelState.IsValid)
             {
-                db.Entry(project).State = EntityState.Modified;
-                db.SaveChanges();
+                var jobToUpdate = db.projects
+                    .Include(i => i.constructionStaffs).First(i => i.projectID == staffViewModel.project.projectID);
+
+                if (TryUpdateModel(jobToUpdate, "Project", new string[] { "siteName", "projectID" }))
+                {
+                    var newJobTags = db.constructionStaffs.Where(
+                        m => staffViewModel.SelectedConstructionStaff.Contains(m.staffID)).ToList();
+                    var updatedJobTags = new HashSet<int>(staffViewModel.SelectedConstructionStaff);
+                    foreach (constructionStaff jobTag in db.constructionStaffs)
+                    {
+                        if (!updatedJobTags.Contains(jobTag.staffID))
+                        {
+                            jobToUpdate.constructionStaffs.Remove(jobTag);
+                        }
+                        else
+                        {
+                            jobToUpdate.constructionStaffs.Add((jobTag));
+                        }
+                    }
+
+                    db.Entry(jobToUpdate).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                }
+
                 return RedirectToAction("Index");
             }
-            return View(project);
+            ViewBag.ProjectID = new SelectList(db.projects, "projectID", "siteName", staffViewModel.project.projectID);
+            return View(staffViewModel);
         }
+
+
+
 
         // GET: projects/Delete/5
         public ActionResult Delete(int? id)
