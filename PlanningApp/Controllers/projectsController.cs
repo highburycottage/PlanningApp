@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 using PlanningApp.Models;
 using PlanningApp.ViewModel;
 
@@ -16,10 +18,48 @@ namespace PlanningApp.Controllers
         private MBCPlanningEntities db = new MBCPlanningEntities();
 
         // GET: projects
-        public ActionResult Index()
-        {
-            return View(db.projects.ToList());
-        }
+        //public ActionResult Index()
+        //{
+        //    return View(db.projects.ToList());
+        //}
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
+         { 
+             ViewBag.CurrentSort = sortOrder; 
+             ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "project_nu" : ""; 
+ 
+ 
+             if (searchString != null) 
+             { 
+                 page = 1; 
+             } 
+             else 
+             { 
+                 searchString = currentFilter; 
+             } 
+ 
+ 
+             ViewBag.CurrentFilter = searchString; 
+ 
+ 
+             var projects = from p in db.projects
+                            select p; 
+             if (!String.IsNullOrEmpty(searchString)) 
+             { 
+                 projects = projects.Where(p => p.projectID.Equals(searchString)); 
+             } 
+             switch (sortOrder) 
+             { 
+                 case "project_nu": 
+                     projects = projects.OrderByDescending(p => p.projectID); 
+                     break; 
+                 default: 
+                     projects = projects.OrderBy(p => p.projectID); 
+                     break; 
+             } 
+             int pageSize = 10; 
+             int pageNumber = (page ?? 1); 
+             return View(projects.ToPagedList(pageNumber, pageSize)); 
+         } 
 
         // GET: projects/Details/5
         public ActionResult Details(int? id)
@@ -39,6 +79,7 @@ namespace PlanningApp.Controllers
         // GET: projects/Create
         public ActionResult Create()
         {
+            PopulateConstructionStaffDropDownList();
             return View();
         }
 
@@ -55,7 +96,6 @@ namespace PlanningApp.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             return View(project);
         }
 
@@ -175,5 +215,69 @@ namespace PlanningApp.Controllers
             }
             base.Dispose(disposing);
         }
+
+        private void PopulateConstructionStaffDropDownList(object selectedStaff = null)
+         { 
+             var staffQuery = from sq in db.constructionStaffs
+                              orderby sq.userName
+                              select sq; 
+             ViewBag.staffID = new SelectList(staffQuery, "staffID", "userName", selectedStaff); 
+         } 
+ 
+ 
+         private MultiSelectList GetStaff(string[] selectedStaff)
+         { 
+             var staffQuery = from sq in db.constructionStaffs
+                              orderby sq.userName
+                              select sq; 
+             return new MultiSelectList(staffQuery, "staffID", "userName", selectedStaff); 
+         } 
+        public ActionResult MultiSelectStaff()
+         { 
+             ViewBag.staffList = GetStaff(null); 
+             return View(); 
+         }
+
+        // GET: projects/Modify/5
+        public ActionResult Modify(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            project project = db.projects.Find(id);
+            if (project == null)
+            {
+                return HttpNotFound();
+            }
+            return View(project);
+        }
+
+         // POST: projects/Modify/5 
+         // To protect from overposting attacks, please enable the specific properties you want to bind to, for  
+         // more details see http://go.microsoft.com/fwlink/?LinkId=317598. 
+         [HttpPost] 
+         [ValidateAntiForgeryToken] 
+         public ActionResult Modify([Bind(Include = "projectID,siteName,siteAddress1,siteAddress2,siteAddress3,sitePostCode,deliveryRestrictions,drawingValid,SSMA_TimeStamp")] project project)
+         { 
+             try 
+             { 
+                 if (ModelState.IsValid) 
+                 { 
+                     db.Entry(project).State = EntityState.Modified; 
+                     db.SaveChanges(); 
+                     return RedirectToAction("Index"); 
+                 } 
+             } 
+             catch(RetryLimitExceededException) 
+             { 
+                 ModelState.AddModelError("", "Unable to save changes.  Try again, if the problem persists, contact your administrator"); 
+             } 
+             return View(project); 
+         } 
+
+
     }
+    
+
 }

@@ -1,19 +1,22 @@
 ﻿@model PlanningApp.Models.project
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Modify";
 }
 
-<h2>Create a New Project</h2>
+<h2>Modify Project Details for BC @Html.DisplayFor(model => model.projectID)</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
+        @*<h4>BC @Html.DisplayFor(model => model.projectID)</h4>*@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.projectID)
+
         <div class="form-group">
             @Html.Label("Site Name", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -62,18 +65,9 @@
             </div>
         </div>
 
-        @*<div class="form-group">
-            @html.label("construction team", htmlattributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">*@
-                @*@html.dropdownlist("staffid", null, htmlattributes: new { @class = "form-control" })*@
-               @* @html.listbox("staffid", (multiselectlist)viewbag.staffid, htmlattributes: new { @class = "form-control chzn-select" }) *@
-                @*@html.validationmessagefor(model => model.staffid, "", new { @class = "text-danger" })*@
-            @*</div>
-        </div>*@
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
     </div>
@@ -83,19 +77,9 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
-@section Scripts 
-{
+@section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('.chzn-select').chosen();
-
-        });
-</script>
-   
-<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/chosen.jquery.js"></script>
-<link href="~/Content/chosen/chosen.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 }

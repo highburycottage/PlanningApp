@@ -1,5 +1,6 @@
-﻿@model IEnumerable<PlanningApp.Models.project>
-
+﻿@*@model IEnumerable<PlanningApp.Models.project>*@
+@model PagedList.IPagedList<PlanningApp.Models.project>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Index";
 }
@@ -9,19 +10,31 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+@using (Html.BeginForm("Index", "Projects", FormMethod.Get))
+{
+    <p>
+        Find by Project Number: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type = "submit" value = "Search" />
+    </p>
+}
+
 <table class="table">
     <tr>
+        <th>
+            @Html.ActionLink("Project", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })    
+        </th>
+
         <th>
             Site Name
         </th>
         <th>
-           Site Address
+            Site Address
         </th>
         <th>
             Address cont
         </th>
         <th>
-           Address Cont
+            Address Cont
         </th>
         <th>
             Post Code
@@ -41,6 +54,10 @@
 {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.projectID)
+        </td>
+
+        <td>
             @Html.DisplayFor(modelItem => item.siteName)
         </td>
         <td>
@@ -59,14 +76,17 @@
             @Html.DisplayFor(modelItem => item.deliveryRestrictions)
         </td>
         <td>
-            @Html.ListBox("staffID", new SelectList(item.constructionStaffs, "staffID", "userName"),htmlAttributes: new { @class = "form-control " })
+            @Html.ListBox("staffID", new SelectList(item.constructionStaffs, "staffID", "userName"), htmlAttributes: new { @class = "form-control " })
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.projectID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.projectID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.projectID })
+            @Html.ActionLink("Add Team", "Edit", new { id = item.projectID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.projectID }) | 
+            @Html.ActionLink("Modify", "Modify", new { id = item.projectID})
+            @*@Html.ActionLink("Delete", "Delete", new { id = item.projectID })*@
         </td>
     </tr>
 }
 
 </table>
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
