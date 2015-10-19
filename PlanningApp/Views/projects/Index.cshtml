@@ -12,10 +12,10 @@
 </p>
 @using (Html.BeginForm("Index", "Projects", FormMethod.Get))
 {
-    <p>
+    @*<p>
             Find by Project Number: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
             <input type="submit" value="Search" />  
-    </p>
+    </p>*@
 }
 
 <table class="table">
@@ -76,7 +76,7 @@
             @Html.DisplayFor(modelItem => item.deliveryRestrictions)
         </td>
         <td>
-            @Html.ListBox("staffID", new SelectList(item.constructionStaffs, "staffID", "userName"), htmlAttributes: new { @class = "form-control " })
+            @Html.ListBox("staffID", new SelectList(item.constructionStaffs, "staffID", "userName"), htmlAttributes: new { @class = "form-control" })
         </td>
         <td>
             @Html.ActionLink("Add Team", "Edit", new { id = item.projectID }) |

@@ -22,16 +22,32 @@ namespace PlanningApp.Controllers
         //{
         //    return View(db.projects.ToList());
         //}
-        public ActionResult Index(string sortOrder, string currentFilter, int searchString, int? page)
+
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
          { 
              ViewBag.CurrentSort = sortOrder; 
              ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "project_nu" : ""; 
+ 
+ 
+             if (searchString != null) 
+             { 
+                 page = 1; 
+             } 
+             else 
+             { 
+                 searchString = currentFilter; 
+             } 
+ 
+ 
              ViewBag.CurrentFilter = searchString; 
-
+ 
+ 
              var projects = from p in db.projects
                             select p; 
-             projects = projects.Where(p => p.projectID.Equals(searchString)); 
- 
+             if (!String.IsNullOrEmpty(searchString)) 
+             { 
+                 projects = projects.Where(p => p.projectID.Equals(searchString)); 
+             } 
              switch (sortOrder) 
              { 
                  case "project_nu": 
@@ -43,8 +59,9 @@ namespace PlanningApp.Controllers
              } 
              int pageSize = 10; 
              int pageNumber = (page ?? 1); 
-            return View(projects.ToPagedList(pageNumber, pageSize));
+             return View(projects.ToPagedList(pageNumber, pageSize)); 
          } 
+        
 
         // GET: projects/Details/5
         public ActionResult Details(int? id)
