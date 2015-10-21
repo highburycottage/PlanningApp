@@ -139,8 +139,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\constructionStaffsController.cs" />
-    <Compile Include="Controllers\DrawingRegisterController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\itemContentsController.cs" />
     <Compile Include="Controllers\projectsController.cs" />
     <Compile Include="Controllers\vendorHQTablesController.cs" />
     <Compile Include="Controllers\vendorLocationDetailsController.cs" />
@@ -236,6 +236,7 @@
     <Content Include="Models\PlanningApp.edmx.diagram">
       <DependentUpon>PlanningApp.edmx</DependentUpon>
     </Content>
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -262,7 +263,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\DrawingRegister\DrawingRegister.cshtml" />
     <Content Include="Views\vendorHQTables\Create.cshtml" />
     <Content Include="Views\vendorHQTables\Delete.cshtml" />
     <Content Include="Views\vendorHQTables\Details.cshtml" />
@@ -284,6 +284,11 @@
     <Content Include="Views\projects\Edit.cshtml" />
     <Content Include="Views\projects\Index.cshtml" />
     <Content Include="Views\projects\Modify.cshtml" />
+    <Content Include="Views\itemContents\Create.cshtml" />
+    <Content Include="Views\itemContents\Delete.cshtml" />
+    <Content Include="Views\itemContents\Details.cshtml" />
+    <Content Include="Views\itemContents\Edit.cshtml" />
+    <Content Include="Views\itemContents\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

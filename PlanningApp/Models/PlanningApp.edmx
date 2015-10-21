@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MBCPlanningModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MBCPlanningModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="constructionStaff">
           <Key>
             <PropertyRef Name="staffID" />
@@ -26,6 +26,7 @@
           <Property Name="drawingValid" Type="bit" />
           <Property Name="originatorID" Type="nvarchar" MaxLength="255" />
           <Property Name="SSMA_TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="projectID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="itemContents">
           <Key>
@@ -142,6 +143,18 @@
           <Property Name="vendorContact" Type="nvarchar" MaxLength="255" />
           <Property Name="vendorEmail" Type="nvarchar" MaxLength="255" />
         </EntityType>
+        <Association Name="FK__drawingRe__proje__4316F928">
+          <End Role="project" Type="Self.project" Multiplicity="1" />
+          <End Role="drawingRegister" Type="Self.drawingRegister" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="project">
+              <PropertyRef Name="projectID" />
+            </Principal>
+            <Dependent Role="drawingRegister">
+              <PropertyRef Name="projectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_projectStaff_constructionStaff">
           <End Role="constructionStaff" Type="Self.constructionStaff" Multiplicity="1" />
           <End Role="projectStaff" Type="Self.projectStaff" Multiplicity="*" />
@@ -257,6 +270,10 @@
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="vendorHQTable" EntityType="Self.vendorHQTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="vendorLocationDetails" EntityType="Self.vendorLocationDetails" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__drawingRe__proje__4316F928" Association="Self.FK__drawingRe__proje__4316F928">
+            <End Role="project" EntitySet="project" />
+            <End Role="drawingRegister" EntitySet="drawingRegister" />
+          </AssociationSet>
           <AssociationSet Name="FK_projectStaff_constructionStaff" Association="Self.FK_projectStaff_constructionStaff">
             <End Role="constructionStaff" EntitySet="constructionStaff" />
             <End Role="projectStaff" EntitySet="projectStaff" />
@@ -282,8 +299,7 @@
             <End Role="vendorLocationDetails" EntitySet="vendorLocationDetails" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MBCPlanningModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -309,6 +325,8 @@
           <Property Name="drawingValid" Type="Boolean" />
           <Property Name="originatorID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="SSMA_TimeStamp" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="projectID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="project" Relationship="MBCPlanningModel.FK__drawingRe__proje__4316F928" FromRole="drawingRegister" ToRole="project" />
         </EntityType>
         <EntityType Name="itemContent">
           <Key>
@@ -351,6 +369,7 @@
           <Property Name="SSMA_TimeStamp" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
           <NavigationProperty Name="projectRequisitions" Relationship="Self.projectRequisitions_projectprojectRequisitions" FromRole="project" ToRole="projectRequisitions" />
           <NavigationProperty Name="constructionStaffs" Relationship="Self.projectStaff" FromRole="project" ToRole="constructionStaff" />
+          <NavigationProperty Name="drawingRegisters" Relationship="MBCPlanningModel.FK__drawingRe__proje__4316F928" FromRole="project" ToRole="drawingRegister" />
         </EntityType>
         <EntityType Name="projectRequisition">
           <Key>
@@ -539,6 +558,10 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <AssociationSet Name="FK__drawingRe__proje__4316F928" Association="MBCPlanningModel.FK__drawingRe__proje__4316F928">
+            <End Role="project" EntitySet="projects" />
+            <End Role="drawingRegister" EntitySet="drawingRegisters" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -551,6 +574,18 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
+        <Association Name="FK__drawingRe__proje__4316F928">
+          <End Type="MBCPlanningModel.project" Role="project" Multiplicity="1" />
+          <End Type="MBCPlanningModel.drawingRegister" Role="drawingRegister" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="project">
+              <PropertyRef Name="projectID" />
+            </Principal>
+            <Dependent Role="drawingRegister">
+              <PropertyRef Name="projectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -569,6 +604,7 @@
           <EntitySetMapping Name="drawingRegisters">
             <EntityTypeMapping TypeName="MBCPlanningModel.drawingRegister">
               <MappingFragment StoreEntitySet="drawingRegister">
+                <ScalarProperty Name="projectID" ColumnName="projectID" />
                 <ScalarProperty Name="drawingNumber" ColumnName="drawingNumber" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="revisionID" ColumnName="revisionID" />

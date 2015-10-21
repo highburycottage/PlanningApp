@@ -5,7 +5,7 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details of BC @Html.DisplayFor(model => model.projectID)</h2>
+<h2>BC @Html.DisplayFor(model => model.projectID)</h2>
 
 <div>
     @*<h4>project</h4>*@
@@ -75,20 +75,48 @@
                 }
             </table>
 
-
-
-
-
-
-
         </dd>
 
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.projectID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
 
+<body>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <h4>New Requistion</h4>
+            <p>
+                Click on the button below to raise a new Requistion for this Project.
+            </p>
+            <p><a class="btn btn-primary" @Html.ActionLink("New Requisition", "Index", "Projects")</a></p>
+        </div>
+        <div class="col-md-4">
+            <h4>View Requistions</h4>
+            <p>
+                Click on the button below to view the Requistions for this Project.
+            </p>
+            <p><a class="btn btn-primary" @Html.ActionLink("View Requisitions", "Index", "Projects")</a></p>
+        </div>
+        <div class="col-md-4">
+            <h4>Drawing Register</h4>
+            <p>
+                Click on the button below to view the Drawing Register for this Project.
+                <br />
+            </p>
+            <p><a class="btn btn-primary" @Html.ActionLink("Drawing Register", "Index", "drawingRegisters", new { id = Model.projectID })</a></p>
+        </div>
+    </div>
+
+
+</body>
+<div>
+    <footer>
+        <hr />
+        <p>
+            @Html.ActionLink("Edit Project Details", "Edit", new { id = Model.projectID }) |
+            @Html.ActionLink("Back to List", "Index")
+        </p>
+    </footer>
+</div>
 

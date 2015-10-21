@@ -1,0 +1,52 @@
+﻿@*@model IEnumerable<PlanningApp.Models.project>*@
+@model PagedList.IPagedList<PlanningApp.Models.itemContent>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Summary of Items</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm("Index", "ItemContents", FormMethod.Get))
+{
+    <p>
+                Find by Description: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+                <input type="submit" value="Search" />
+        </p>
+}
+<table class="table">
+    <tr>
+        <th>
+            Item Code
+        </th>
+        <th>
+            @Html.ActionLink("Item Content", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.itemCodeID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.description)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.itemCodeID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.itemCodeID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.itemCodeID })
+        </td>
+    </tr>
+}
+
+</table>
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+

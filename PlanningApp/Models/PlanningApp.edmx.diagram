@@ -20,6 +20,7 @@
         <AssociationConnector Association="MBCPlanningModel.projectRequisitions_requisitionprojectRequisitions" ManuallyRouted="false" />
         <AssociationConnector Association="MBCPlanningModel.vendorLocationDetails_vendorHQTablevendorLocationDetails" ManuallyRouted="false" />
         <AssociationConnector Association="MBCPlanningModel.projectStaff" ManuallyRouted="false" />
+        <AssociationConnector Association="MBCPlanningModel.FK__drawingRe__proje__4316F928" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

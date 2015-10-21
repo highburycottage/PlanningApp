@@ -6,26 +6,28 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using PlanningApp.Models;
 using PagedList;
+using PlanningApp.Models;
 
 namespace PlanningApp.Controllers
 {
-    public class constructionStaffsController : Controller
+    public class itemContentsController : Controller
     {
         private MBCPlanningEntities db = new MBCPlanningEntities();
 
-        // GET: constructionStaffs
+        // GET: itemContents
         //public ActionResult Index()
         //{
-        //    return View(db.constructionStaffs.ToList());
+        //    return View(db.itemContents.ToList());
         //}
+
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
-            ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-                       
-            if (searchString !=null)
+            ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "description_nu" : "";
+
+
+            if (searchString != null)
             {
                 page = 1;
             }
@@ -33,119 +35,122 @@ namespace PlanningApp.Controllers
             {
                 searchString = currentFilter;
             }
+
+
             ViewBag.CurrentFilter = searchString;
 
-            var staff = from s in db.constructionStaffs
-                        select s;
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                staff = staff.Where(s => s.userName.Contains(searchString));
-            }
 
+            var itemContents = from p in db.itemContents
+                           select p;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                itemContents = itemContents.Where(p => p.description.Contains(searchString));
+            }
             switch (sortOrder)
             {
-                case "name_desc":
-                    staff = staff.OrderByDescending(s => s.userName);
+                case "discription_nu":
+                    itemContents = itemContents.OrderByDescending(p => p.itemCodeID);
                     break;
                 default:
-                    staff = staff.OrderBy(s => s.userName);
+                    itemContents = itemContents.OrderBy(p => p.itemCodeID);
                     break;
             }
             int pageSize = 10;
             int pageNumber = (page ?? 1);
-            return View(staff.ToPagedList(pageNumber, pageSize));
+            return View(itemContents.ToPagedList(pageNumber, pageSize));
         }
-        // GET: constructionStaffs/Details/5
-        public ActionResult Details(int? id)
+
+        // GET: itemContents/Details/5
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            constructionStaff constructionStaff = db.constructionStaffs.Find(id);
-            if (constructionStaff == null)
+            itemContent itemContent = db.itemContents.Find(id);
+            if (itemContent == null)
             {
                 return HttpNotFound();
             }
-            return View(constructionStaff);
+            return View(itemContent);
         }
 
-        // GET: constructionStaffs/Create
+        // GET: itemContents/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: constructionStaffs/Create
+        // POST: itemContents/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "staffID,userName,emailAddress")] constructionStaff constructionStaff)
+        public ActionResult Create([Bind(Include = "itemCodeID,description")] itemContent itemContent)
         {
             if (ModelState.IsValid)
             {
-                db.constructionStaffs.Add(constructionStaff);
+                db.itemContents.Add(itemContent);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(constructionStaff);
+            return View(itemContent);
         }
 
-        // GET: constructionStaffs/Edit/5
-        public ActionResult Edit(int? id)
+        // GET: itemContents/Edit/5
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            constructionStaff constructionStaff = db.constructionStaffs.Find(id);
-            if (constructionStaff == null)
+            itemContent itemContent = db.itemContents.Find(id);
+            if (itemContent == null)
             {
                 return HttpNotFound();
             }
-            return View(constructionStaff);
+            return View(itemContent);
         }
 
-        // POST: constructionStaffs/Edit/5
+        // POST: itemContents/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "staffID,userName,emailAddress")] constructionStaff constructionStaff)
+        public ActionResult Edit([Bind(Include = "itemCodeID,description")] itemContent itemContent)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(constructionStaff).State = EntityState.Modified;
+                db.Entry(itemContent).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(constructionStaff);
+            return View(itemContent);
         }
 
-        // GET: constructionStaffs/Delete/5
-        public ActionResult Delete(int? id)
+        // GET: itemContents/Delete/5
+        public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            constructionStaff constructionStaff = db.constructionStaffs.Find(id);
-            if (constructionStaff == null)
+            itemContent itemContent = db.itemContents.Find(id);
+            if (itemContent == null)
             {
                 return HttpNotFound();
             }
-            return View(constructionStaff);
+            return View(itemContent);
         }
 
-        // POST: constructionStaffs/Delete/5
+        // POST: itemContents/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(string id)
         {
-            constructionStaff constructionStaff = db.constructionStaffs.Find(id);
-            db.constructionStaffs.Remove(constructionStaff);
+            itemContent itemContent = db.itemContents.Find(id);
+            db.itemContents.Remove(itemContent);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

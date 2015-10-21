@@ -23,5 +23,8 @@ namespace PlanningApp.Models
         public Nullable<bool> drawingValid { get; set; }
         public string originatorID { get; set; }
         public byte[] SSMA_TimeStamp { get; set; }
+        public int projectID { get; set; }
+    
+        public virtual project project { get; set; }
     }
 }
