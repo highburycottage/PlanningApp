@@ -1,0 +1,276 @@
+﻿@model PlanningApp.Models.plantHireOrder
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create A New Order</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+
+                <button class="btn btn-default" type="button">
+                    Email PDF
+                </button>
+                <br />
+                <br />
+                <button class="btn btn-default" type="button">
+                    Print
+                </button>
+            </div>
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="control-label col-md-3">
+                        <span class="label label-default" >Order Number</span> <br /> <br /> <span class="label label-default">Title</span> <br /> <br /><span class="label label-default">Depot Contact</span><br /> <span class="label label-default">Email Address</span> <br /> <span class="label label-default">Vendor Address</span>
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.orderNumberID) <span class="label label-default">Label</span> <span class="label label-default">Label</span> <span class="label label-default">Label</span>
+                    </div>
+                    <div class="col-md-3">
+                        <span class="label label-default">Project No</span><br /> <span class="label label-default">Site Address</span><br /> <span class="label label-default">Label</span> <br /><span class="label label-default">Label</span> <br /> <span class="label label-default">Site Contact</span><br /> <span class="label label-default">Originator</span>
+                    </div>
+                    <div class="col-md-3">
+                        @Html.DropDownList("projectID") <span class="label label-default">Label</span> <span class="label label-default">Label</span> <span class="label label-default">Label</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <span class="label label-default">Label</span>
+                    </div>
+                    <div class="col-md-10">
+                    </div>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Item
+                            </th>
+                            <th>
+                                Quantity
+                            </th>
+                            <th>
+                                Unit
+                            </th>
+                            <th>
+                                Description
+                            </th>
+                            <th>
+                                Weekly Rate
+                            </th>
+                            <th>
+                                Discount %
+                            </th>
+                            <th>
+                                Hire Cost £
+                            </th>
+                            <th>
+                                Date Req'd <br />
+                                on site
+                            </th>
+                            <th>
+                                Duration <br />
+                                approx
+                            </th>
+                            <th>
+                                Off Hired
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                1
+                            </td>
+                            <td>
+                                TB - Monthly
+                            </td>
+                            <td>
+                                01/04/2012
+                            </td>
+                            <td>
+                                Default
+                            </td>
+                        </tr>
+                        <tr class="active">
+                            <td>
+                                1
+                            </td>
+                            <td>
+                                TB - Monthly
+                            </td>
+                            <td>
+                                01/04/2012
+                            </td>
+                            <td>
+                                Approved
+                            </td>
+                        </tr>
+                        <tr class="success">
+                            <td>
+                                2
+                            </td>
+                            <td>
+                                TB - Monthly
+                            </td>
+                            <td>
+                                02/04/2012
+                            </td>
+                            <td>
+                                Declined
+                            </td>
+                        </tr>
+                        <tr class="warning">
+                            <td>
+                                3
+                            </td>
+                            <td>
+                                TB - Monthly
+                            </td>
+                            <td>
+                                03/04/2012
+                            </td>
+                            <td>
+                                Pending
+                            </td>
+                        </tr>
+                        <tr class="danger">
+                            <td>
+                                4
+                            </td>
+                            <td>
+                                TB - Monthly
+                            </td>
+                            <td>
+                                04/04/2012
+                            </td>
+                            <td>
+                                Call in to confirm
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.projectID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.projectID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.projectID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.item, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.item, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.item, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.quantity, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.quantity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.unit, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.unit, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.unit, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.weeklyRate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.weeklyRate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.weeklyRate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.discount, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.discount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.discount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.hireCost, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.hireCost, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.hireCost, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.dateRequiredOnSite, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.dateRequiredOnSite, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.dateRequiredOnSite, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.duration, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.duration, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.duration, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.offHireNo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.offHireNo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.offHireNo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.offHireDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.offHireDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.offHireDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -20,6 +20,7 @@ namespace PlanningApp.Models
             this.projectRequisitions = new HashSet<projectRequisition>();
             this.constructionStaffs = new HashSet<constructionStaff>();
             this.drawingRegisters = new HashSet<drawingRegister>();
+            this.plantHireOrders = new HashSet<plantHireOrder>();
         }
     
         public int projectID { get; set; }
@@ -37,5 +38,7 @@ namespace PlanningApp.Models
         public virtual ICollection<constructionStaff> constructionStaffs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<drawingRegister> drawingRegisters { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<plantHireOrder> plantHireOrders { get; set; }
     }
 }

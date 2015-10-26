@@ -53,6 +53,9 @@
           <Property Name="duration" Type="nvarchar" MaxLength="255" />
           <Property Name="offHireNo" Type="nvarchar" MaxLength="255" />
           <Property Name="offHireDate" Type="datetime2" Precision="0" />
+          <Property Name="title" Type="nvarchar" MaxLength="255" />
+          <Property Name="siteContact" Type="nvarchar" MaxLength="255" />
+          <Property Name="originator" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="project">
           <Key>
@@ -151,6 +154,18 @@
               <PropertyRef Name="projectID" />
             </Principal>
             <Dependent Role="drawingRegister">
+              <PropertyRef Name="projectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_projectID">
+          <End Role="project" Type="Self.project" Multiplicity="0..1" />
+          <End Role="plantHireOrder" Type="Self.plantHireOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="project">
+              <PropertyRef Name="projectID" />
+            </Principal>
+            <Dependent Role="plantHireOrder">
               <PropertyRef Name="projectID" />
             </Dependent>
           </ReferentialConstraint>
@@ -274,6 +289,10 @@
             <End Role="project" EntitySet="project" />
             <End Role="drawingRegister" EntitySet="drawingRegister" />
           </AssociationSet>
+          <AssociationSet Name="fk_projectID" Association="Self.fk_projectID">
+            <End Role="project" EntitySet="project" />
+            <End Role="plantHireOrder" EntitySet="plantHireOrder" />
+          </AssociationSet>
           <AssociationSet Name="FK_projectStaff_constructionStaff" Association="Self.FK_projectStaff_constructionStaff">
             <End Role="constructionStaff" EntitySet="constructionStaff" />
             <End Role="projectStaff" EntitySet="projectStaff" />
@@ -354,6 +373,10 @@
           <Property Name="duration" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="offHireNo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="offHireDate" Type="DateTime" Precision="0" />
+          <Property Name="title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="siteContact" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="originator" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="project" Relationship="MBCPlanningModel.fk_projectID" FromRole="plantHireOrder" ToRole="project" />
         </EntityType>
         <EntityType Name="project">
           <Key>
@@ -370,6 +393,7 @@
           <NavigationProperty Name="projectRequisitions" Relationship="Self.projectRequisitions_projectprojectRequisitions" FromRole="project" ToRole="projectRequisitions" />
           <NavigationProperty Name="constructionStaffs" Relationship="Self.projectStaff" FromRole="project" ToRole="constructionStaff" />
           <NavigationProperty Name="drawingRegisters" Relationship="MBCPlanningModel.FK__drawingRe__proje__4316F928" FromRole="project" ToRole="drawingRegister" />
+          <NavigationProperty Name="plantHireOrders" Relationship="MBCPlanningModel.fk_projectID" FromRole="project" ToRole="plantHireOrder" />
         </EntityType>
         <EntityType Name="projectRequisition">
           <Key>
@@ -562,6 +586,10 @@
             <End Role="project" EntitySet="projects" />
             <End Role="drawingRegister" EntitySet="drawingRegisters" />
           </AssociationSet>
+          <AssociationSet Name="fk_projectID" Association="MBCPlanningModel.fk_projectID">
+            <End Role="project" EntitySet="projects" />
+            <End Role="plantHireOrder" EntitySet="plantHireOrders" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -582,6 +610,18 @@
               <PropertyRef Name="projectID" />
             </Principal>
             <Dependent Role="drawingRegister">
+              <PropertyRef Name="projectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_projectID">
+          <End Type="MBCPlanningModel.project" Role="project" Multiplicity="0..1" />
+          <End Type="MBCPlanningModel.plantHireOrder" Role="plantHireOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="project">
+              <PropertyRef Name="projectID" />
+            </Principal>
+            <Dependent Role="plantHireOrder">
               <PropertyRef Name="projectID" />
             </Dependent>
           </ReferentialConstraint>
@@ -628,6 +668,9 @@
           <EntitySetMapping Name="plantHireOrders">
             <EntityTypeMapping TypeName="MBCPlanningModel.plantHireOrder">
               <MappingFragment StoreEntitySet="plantHireOrder">
+                <ScalarProperty Name="originator" ColumnName="originator" />
+                <ScalarProperty Name="siteContact" ColumnName="siteContact" />
+                <ScalarProperty Name="title" ColumnName="title" />
                 <ScalarProperty Name="orderNumberID" ColumnName="orderNumberID" />
                 <ScalarProperty Name="projectID" ColumnName="projectID" />
                 <ScalarProperty Name="vendorLocationID" ColumnName="vendorLocationID" />

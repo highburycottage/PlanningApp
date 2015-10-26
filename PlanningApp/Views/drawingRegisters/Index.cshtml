@@ -1,0 +1,85 @@
+﻿@model IEnumerable<PlanningApp.Models.drawingRegister>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Drawing No.
+        </th>
+        <th>
+            Drawing Description
+        </th>
+        <th>
+            Rev.
+        </th>
+        <th>
+            Issued
+        </th>
+        <th>
+            Comments/Notes
+        </th>
+        <th>
+            Print Size
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.drawingValid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.originatorID)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.project.siteName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.drawingNumber)
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.revisionID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.issued)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.comments)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.printSize)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.drawingValid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.originatorID)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.project.siteName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.drawingNumber }) |
+            @Html.ActionLink("Details", "Details", new { id = item.drawingNumber }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.drawingNumber })
+        </td>
+    </tr>
+}
+
+</table>

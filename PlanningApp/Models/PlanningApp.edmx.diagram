@@ -8,7 +8,7 @@
         <EntityTypeShape EntityType="MBCPlanningModel.constructionStaff" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="MBCPlanningModel.drawingRegister" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MBCPlanningModel.itemContent" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MBCPlanningModel.plantHireOrder" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MBCPlanningModel.plantHireOrder" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
         <EntityTypeShape EntityType="MBCPlanningModel.project" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="MBCPlanningModel.projectRequisition" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="MBCPlanningModel.requisition" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
@@ -21,6 +21,7 @@
         <AssociationConnector Association="MBCPlanningModel.vendorLocationDetails_vendorHQTablevendorLocationDetails" ManuallyRouted="false" />
         <AssociationConnector Association="MBCPlanningModel.projectStaff" ManuallyRouted="false" />
         <AssociationConnector Association="MBCPlanningModel.FK__drawingRe__proje__4316F928" />
+        <AssociationConnector Association="MBCPlanningModel.fk_projectID" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

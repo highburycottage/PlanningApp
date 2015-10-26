@@ -28,5 +28,10 @@ namespace PlanningApp.Models
         public string duration { get; set; }
         public string offHireNo { get; set; }
         public Nullable<System.DateTime> offHireDate { get; set; }
+        public string title { get; set; }
+        public string siteContact { get; set; }
+        public string originator { get; set; }
+    
+        public virtual project project { get; set; }
     }
 }

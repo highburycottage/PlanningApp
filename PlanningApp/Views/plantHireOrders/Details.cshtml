@@ -1,0 +1,122 @@
+﻿@model PlanningApp.Models.plantHireOrder
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>plantHireOrder</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.projectID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.projectID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.vendorLocationID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.vendorLocationID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.item)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.item)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.quantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.unit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.unit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.weeklyRate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.weeklyRate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.discount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.discount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.hireCost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.hireCost)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dateRequiredOnSite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dateRequiredOnSite)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.duration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.duration)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.offHireNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.offHireNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.offHireDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.offHireDate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.orderNumberID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

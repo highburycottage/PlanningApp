@@ -1,0 +1,90 @@
+﻿@model PlanningApp.Models.drawingRegister
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>drawingRegister</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.revisionID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.revisionID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.issued)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.issued)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.comments)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comments)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.printSize)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.printSize)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.drawingValid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.drawingValid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.originatorID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.originatorID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SSMA_TimeStamp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SSMA_TimeStamp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.project.siteName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.project.siteName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.drawingNumber }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

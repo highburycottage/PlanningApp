@@ -139,8 +139,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\constructionStaffsController.cs" />
+    <Compile Include="Controllers\drawingRegistersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\itemContentsController.cs" />
+    <Compile Include="Controllers\plantHireOrdersController.cs" />
     <Compile Include="Controllers\projectsController.cs" />
     <Compile Include="Controllers\vendorHQTablesController.cs" />
     <Compile Include="Controllers\vendorLocationDetailsController.cs" />
@@ -289,6 +291,16 @@
     <Content Include="Views\itemContents\Details.cshtml" />
     <Content Include="Views\itemContents\Edit.cshtml" />
     <Content Include="Views\itemContents\Index.cshtml" />
+    <Content Include="Views\drawingRegisters\Create.cshtml" />
+    <Content Include="Views\drawingRegisters\Delete.cshtml" />
+    <Content Include="Views\drawingRegisters\Details.cshtml" />
+    <Content Include="Views\drawingRegisters\Edit.cshtml" />
+    <Content Include="Views\drawingRegisters\Index.cshtml" />
+    <Content Include="Views\plantHireOrders\Create.cshtml" />
+    <Content Include="Views\plantHireOrders\Delete.cshtml" />
+    <Content Include="Views\plantHireOrders\Details.cshtml" />
+    <Content Include="Views\plantHireOrders\Edit.cshtml" />
+    <Content Include="Views\plantHireOrders\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
