@@ -15,60 +15,79 @@
         <div class="row">
             <div class="col-md-2">
 
-                <button class="btn btn-default" type="button">
-                    Email PDF
-                </button>
+                <input type="submit" value="Email" class="btn btn-default" />
                 <br />
                 <br />
-                <button class="btn btn-default" type="button">
-                    Print
-                </button>
+                <input type="submit" value="Print" class="btn btn-default" />
+                <br />
+                <br />
+                <input type="submit" value="Create" class="btn btn-default" />
+
             </div>
             <div class="col-md-10">
                 <div class="row">
                     <div class="control-label col-md-3">
-                        <span class="label label-default" >Order Number</span> <br /> <br /> <span class="label label-default">Title</span> <br /> <br /><span class="label label-default">Depot Contact</span><br /> <span class="label label-default">Email Address</span> <br /> <span class="label label-default">Vendor Address</span>
+                        <span class="label label-default form-control">Order Number </span> <br /> <br /> <br />
+                        <span class="label label-default form-control">Title</span> <br /> <br />
+                        <span class="label label-default">Depot Contact</span> <br />
+                        <span class="label label-default">Email Address</span> <br />
+                        <span class="label label-default">Telephone</span>
                     </div>
                     <div class="col-md-3">
-                        @Html.EditorFor(model => model.orderNumberID) <span class="label label-default">Label</span> <span class="label label-default">Label</span> <span class="label label-default">Label</span>
+                        @Html.EditorFor(model => model.orderNumberID, new { htmlAttributes = new { @class = "form-control" } }) <br /> @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control" } }) <span class="label label-default">Label</span> <span class="label label-default">Label</span>
                     </div>
                     <div class="col-md-3">
-                        <span class="label label-default">Project No</span><br /> <span class="label label-default">Site Address</span><br /> <span class="label label-default">Label</span> <br /><span class="label label-default">Label</span> <br /> <span class="label label-default">Site Contact</span><br /> <span class="label label-default">Originator</span>
+                        <span class="label label-default form-control">Project Name</span><br /> <br /><br />
+                        <span class="label label-default form-control">Site Address</span><br /> <br /> <br />
+                        <span class="label label-default form-control">Address cont</span><br /> <br />
+                        <span class="label label-default form-control">Address cont</span><br /> <br /> <br />
+                        <span class="label label-default form-control">Post Code</span><br /> <br /><br />
+                        <span class="label label-default form-control">Site Contact</span><br /><br />
+                        <span class="label label-default form-control">Originator</span>
                     </div>
                     <div class="col-md-3">
-                        @Html.DropDownList("projectID") <span class="label label-default">Label</span> <span class="label label-default">Label</span> <span class="label label-default">Label</span>
+                        @Html.DropDownList("projectID", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.LabelFor(model => model.project.siteAddress1, new { htmlAttributes = new { @class = "form-control" } })<br />
+                        @Html.LabelFor(model => model.project.siteAddress2, new { htmlAttributes = new { @class = "form-control" } })<br />
+                        @Html.LabelFor(model => model.project.siteAddress3, new { htmlAttributes = new { @class = "form-control" } })<br />
+                        @Html.LabelFor(model => model.project.sitePostCode, new { htmlAttributes = new { @class = "form-control" } }) <br />
+                        @Html.EditorFor(model => model.siteContact, new { htmlAttributes = new { @class = "form-control" } }) <br />
+                        @Html.EditorFor(model => model.originator, new { htmlAttributes = new { @class = "form-control" } })<br /><br />
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-2">
-                        <span class="label label-default">Label</span>
+                        <br />
+                        <span class="label label-default form-control">Vendor Address</span>
                     </div>
                     <div class="col-md-10">
+                        <br />
+                        <span class="form-control" @Html.EditorFor(model => model.title)></span>
                     </div>
                 </div>
                 <table class="table">
                     <thead>
                         <tr>
                             <th>
-                                Item
+                                @Html.Label("Item", htmlAttributes: new { @class = "control-label col-md-2" })
                             </th>
                             <th>
-                                Quantity
+                                @Html.Label("Quantity", htmlAttributes: new { @class = "control-label col-md-2" })
                             </th>
                             <th>
-                                Unit
+                                @Html.Label("Unit", htmlAttributes: new { @class = "control-label col-md-2" })
                             </th>
                             <th>
-                                Description
+                                @Html.Label("Description", htmlAttributes: new { @class = "control-label col-md-8" })
                             </th>
                             <th>
-                                Weekly Rate
+                                @Html.Label("Weekly Rate", htmlAttributes: new { @class = "control-label col-md-4" })
                             </th>
                             <th>
-                                Discount %
+                                @Html.Label("Discount %", htmlAttributes: new { @class = "control-label col-md-4" })
                             </th>
                             <th>
-                                Hire Cost £
+                                @Html.Label("Hire Cost £", htmlAttributes: new { @class = "control-label col-md-4" })
                             </th>
                             <th>
                                 Date Req'd <br />
@@ -79,79 +98,41 @@
                                 approx
                             </th>
                             <th>
-                                Off Hired
+                                @Html.Label("Off Hired", htmlAttributes: new { @class = "control-label col-md-8" })
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>
-                                1
+                                @Html.EditorFor(model => model.item, new { htmlAttributes = new { @class = "control-label col-md-4" } })
                             </td>
                             <td>
-                                TB - Monthly
+                                @Html.EditorFor(model => model.quantity, new { htmlAttributes = new { @class = "control-label col-md-8" } })
                             </td>
                             <td>
-                                01/04/2012
+                                @Html.EditorFor(model => model.unit, new { htmlAttributes = new { @class = "control-label col-md-8" } })
                             </td>
                             <td>
-                                Default
-                            </td>
-                        </tr>
-                        <tr class="active">
-                            <td>
-                                1
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "control-label col-md-24" } })
                             </td>
                             <td>
-                                TB - Monthly
+                                @Html.EditorFor(model => model.weeklyRate, new { htmlAttributes = new { @class = "control-label col-md-8" } })
                             </td>
                             <td>
-                                01/04/2012
+                                @Html.EditorFor(model => model.discount, new { htmlAttributes = new { @class = "control-label col-md-8" } })
                             </td>
                             <td>
-                                Approved
-                            </td>
-                        </tr>
-                        <tr class="success">
-                            <td>
-                                2
+                                @Html.EditorFor(model => model.hireCost, new { htmlAttributes = new { @class = "control-label col-md-8" } })
                             </td>
                             <td>
-                                TB - Monthly
+                                @Html.EditorFor(model => model.dateRequiredOnSite, new { htmlAttributes = new { @class = "control-label col-md-8" } })
                             </td>
                             <td>
-                                02/04/2012
+                                @Html.EditorFor(model => model.duration, new { htmlAttributes = new { @class = "control-label col-md-8" } })
                             </td>
                             <td>
-                                Declined
-                            </td>
-                        </tr>
-                        <tr class="warning">
-                            <td>
-                                3
-                            </td>
-                            <td>
-                                TB - Monthly
-                            </td>
-                            <td>
-                                03/04/2012
-                            </td>
-                            <td>
-                                Pending
-                            </td>
-                        </tr>
-                        <tr class="danger">
-                            <td>
-                                4
-                            </td>
-                            <td>
-                                TB - Monthly
-                            </td>
-                            <td>
-                                04/04/2012
-                            </td>
-                            <td>
-                                Call in to confirm
+                                @Html.EditorFor(model => model.offHireDate, new { htmlAttributes = new { @class = "control-label col-md-8" } })
                             </td>
                         </tr>
                     </tbody>
@@ -159,111 +140,9 @@
             </div>
         </div>
     </div>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.projectID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.projectID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.projectID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.item, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.item, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.item, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.quantity, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.quantity, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.quantity, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.unit, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.unit, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.unit, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.weeklyRate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.weeklyRate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.weeklyRate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.discount, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.discount, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.discount, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.hireCost, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.hireCost, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.hireCost, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.dateRequiredOnSite, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.dateRequiredOnSite, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.dateRequiredOnSite, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.duration, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.duration, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.duration, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.offHireNo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.offHireNo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.offHireNo, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.offHireDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.offHireDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.offHireDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
+    <hr />
+<div>
+    </div>
 
 }
 

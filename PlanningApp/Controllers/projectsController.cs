@@ -24,11 +24,11 @@ namespace PlanningApp.Controllers
         //}
 
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
-         { 
+         {
+
              ViewBag.CurrentSort = sortOrder; 
              ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "project_nu" : ""; 
- 
- 
+                
              if (searchString != null) 
              { 
                  page = 1; 
@@ -57,6 +57,8 @@ namespace PlanningApp.Controllers
                      projects = projects.OrderBy(p => p.projectID); 
                      break; 
              } 
+
+             
              int pageSize = 10; 
              int pageNumber = (page ?? 1); 
              return View(projects.ToPagedList(pageNumber, pageSize)); 

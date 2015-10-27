@@ -30,13 +30,14 @@ namespace PlanningApp.Models
         public virtual DbSet<constructionStaff> constructionStaffs { get; set; }
         public virtual DbSet<drawingRegister> drawingRegisters { get; set; }
         public virtual DbSet<itemContent> itemContents { get; set; }
-        public virtual DbSet<plantHireOrder> plantHireOrders { get; set; }
         public virtual DbSet<project> projects { get; set; }
         public virtual DbSet<projectRequisition> projectRequisitions { get; set; }
         public virtual DbSet<requisition> requisitions { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<vendorHQTable> vendorHQTables { get; set; }
         public virtual DbSet<vendorLocationDetail> vendorLocationDetails { get; set; }
+        public virtual DbSet<plantHireOrder> plantHireOrders { get; set; }
+        public virtual DbSet<plantHireOrderItem> plantHireOrderItems { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

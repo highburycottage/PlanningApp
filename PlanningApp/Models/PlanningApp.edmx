@@ -41,21 +41,32 @@
           </Key>
           <Property Name="orderNumberID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="projectID" Type="int" />
+          <Property Name="title" Type="nvarchar" MaxLength="255" />
           <Property Name="vendorLocationID" Type="nvarchar" MaxLength="255" />
-          <Property Name="item" Type="int" />
-          <Property Name="quantity" Type="int" />
-          <Property Name="unit" Type="nvarchar" MaxLength="255" />
-          <Property Name="Description" Type="nvarchar" MaxLength="255" />
-          <Property Name="weeklyRate" Type="int" />
-          <Property Name="discount" Type="int" />
-          <Property Name="hireCost" Type="int" />
           <Property Name="dateRequiredOnSite" Type="datetime2" Precision="0" />
           <Property Name="duration" Type="nvarchar" MaxLength="255" />
           <Property Name="offHireNo" Type="nvarchar" MaxLength="255" />
-          <Property Name="offHireDate" Type="datetime2" Precision="0" />
-          <Property Name="title" Type="nvarchar" MaxLength="255" />
           <Property Name="siteContact" Type="nvarchar" MaxLength="255" />
           <Property Name="originator" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="plantHireOrderItems">
+          <Key>
+            <PropertyRef Name="itemOrderID" />
+          </Key>
+          <Property Name="itemOrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="orderNumberID" Type="int" />
+          <Property Name="item" Type="int" />
+          <Property Name="quantity" Type="nvarchar" MaxLength="255" />
+          <Property Name="unit" Type="nvarchar" MaxLength="255" />
+          <Property Name="description" Type="nvarchar" MaxLength="255" />
+          <Property Name="weeklyrate" Type="money" />
+          <Property Name="discount" Type="real" />
+          <Property Name="hireCost" Type="int" />
+          <Property Name="dateRequiredOnSite" Type="datetime2" Precision="0" />
+          <Property Name="duration" Type="nvarchar" MaxLength="255" />
+          <Property Name="offHiredNo" Type="nvarchar" MaxLength="255" />
+          <Property Name="offHireDate" Type="datetime2" Precision="0" />
+          <Property Name="SSMA_TimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
         <EntityType Name="project">
           <Key>
@@ -158,7 +169,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_projectID">
+        <Association Name="FK__plantHire__proje__59FA5E80">
           <End Role="project" Type="Self.project" Multiplicity="0..1" />
           <End Role="plantHireOrder" Type="Self.plantHireOrder" Multiplicity="*" />
           <ReferentialConstraint>
@@ -191,6 +202,18 @@
             </Principal>
             <Dependent Role="projectStaff">
               <PropertyRef Name="projectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="plantHireOrderItems$plantHireOrderplantHireOrderItems">
+          <End Role="plantHireOrder" Type="Self.plantHireOrder" Multiplicity="0..1" />
+          <End Role="plantHireOrderItems" Type="Self.plantHireOrderItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="plantHireOrder">
+              <PropertyRef Name="orderNumberID" />
+            </Principal>
+            <Dependent Role="plantHireOrderItems">
+              <PropertyRef Name="orderNumberID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -278,6 +301,7 @@
           <EntitySet Name="drawingRegister" EntityType="Self.drawingRegister" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="itemContents" EntityType="Self.itemContents" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="plantHireOrder" EntityType="Self.plantHireOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="plantHireOrderItems" EntityType="Self.plantHireOrderItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="project" EntityType="Self.project" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="projectRequisitions" EntityType="Self.projectRequisitions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="projectStaff" EntityType="Self.projectStaff" Schema="dbo" store:Type="Tables" />
@@ -289,7 +313,7 @@
             <End Role="project" EntitySet="project" />
             <End Role="drawingRegister" EntitySet="drawingRegister" />
           </AssociationSet>
-          <AssociationSet Name="fk_projectID" Association="Self.fk_projectID">
+          <AssociationSet Name="FK__plantHire__proje__59FA5E80" Association="Self.FK__plantHire__proje__59FA5E80">
             <End Role="project" EntitySet="project" />
             <End Role="plantHireOrder" EntitySet="plantHireOrder" />
           </AssociationSet>
@@ -300,6 +324,10 @@
           <AssociationSet Name="FK_projectStaff_project" Association="Self.FK_projectStaff_project">
             <End Role="project" EntitySet="project" />
             <End Role="projectStaff" EntitySet="projectStaff" />
+          </AssociationSet>
+          <AssociationSet Name="plantHireOrderItems$plantHireOrderplantHireOrderItems" Association="Self.plantHireOrderItems$plantHireOrderplantHireOrderItems">
+            <End Role="plantHireOrder" EntitySet="plantHireOrder" />
+            <End Role="plantHireOrderItems" EntitySet="plantHireOrderItems" />
           </AssociationSet>
           <AssociationSet Name="projectRequisitions$projectprojectRequisitions" Association="Self.projectRequisitions$projectprojectRequisitions">
             <End Role="project" EntitySet="project" />
@@ -355,29 +383,6 @@
           <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="requisitions" Relationship="Self.requisition_itemContentsrequisition" FromRole="itemContents" ToRole="requisition" />
         </EntityType>
-        <EntityType Name="plantHireOrder">
-          <Key>
-            <PropertyRef Name="orderNumberID" />
-          </Key>
-          <Property Name="orderNumberID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="projectID" Type="Int32" />
-          <Property Name="vendorLocationID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="item" Type="Int32" />
-          <Property Name="quantity" Type="Int32" />
-          <Property Name="unit" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="weeklyRate" Type="Int32" />
-          <Property Name="discount" Type="Int32" />
-          <Property Name="hireCost" Type="Int32" />
-          <Property Name="dateRequiredOnSite" Type="DateTime" Precision="0" />
-          <Property Name="duration" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="offHireNo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="offHireDate" Type="DateTime" Precision="0" />
-          <Property Name="title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="siteContact" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="originator" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="project" Relationship="MBCPlanningModel.fk_projectID" FromRole="plantHireOrder" ToRole="project" />
-        </EntityType>
         <EntityType Name="project">
           <Key>
             <PropertyRef Name="projectID" />
@@ -393,7 +398,7 @@
           <NavigationProperty Name="projectRequisitions" Relationship="Self.projectRequisitions_projectprojectRequisitions" FromRole="project" ToRole="projectRequisitions" />
           <NavigationProperty Name="constructionStaffs" Relationship="Self.projectStaff" FromRole="project" ToRole="constructionStaff" />
           <NavigationProperty Name="drawingRegisters" Relationship="MBCPlanningModel.FK__drawingRe__proje__4316F928" FromRole="project" ToRole="drawingRegister" />
-          <NavigationProperty Name="plantHireOrders" Relationship="MBCPlanningModel.fk_projectID" FromRole="project" ToRole="plantHireOrder" />
+          <NavigationProperty Name="plantHireOrders" Relationship="MBCPlanningModel.FK__plantHire__proje__59FA5E80" FromRole="project" ToRole="plantHireOrder" />
         </EntityType>
         <EntityType Name="projectRequisition">
           <Key>
@@ -525,7 +530,6 @@
           <EntitySet Name="constructionStaffs" EntityType="Self.constructionStaff" />
           <EntitySet Name="drawingRegisters" EntityType="Self.drawingRegister" />
           <EntitySet Name="itemContents" EntityType="Self.itemContent" />
-          <EntitySet Name="plantHireOrders" EntityType="Self.plantHireOrder" />
           <EntitySet Name="projects" EntityType="Self.project" />
           <EntitySet Name="projectRequisitions" EntityType="Self.projectRequisition" />
           <EntitySet Name="requisitions" EntityType="Self.requisition" />
@@ -586,7 +590,13 @@
             <End Role="project" EntitySet="projects" />
             <End Role="drawingRegister" EntitySet="drawingRegisters" />
           </AssociationSet>
-          <AssociationSet Name="fk_projectID" Association="MBCPlanningModel.fk_projectID">
+          <EntitySet Name="plantHireOrders" EntityType="MBCPlanningModel.plantHireOrder" />
+          <EntitySet Name="plantHireOrderItems" EntityType="MBCPlanningModel.plantHireOrderItem" />
+          <AssociationSet Name="plantHireOrderItems_plantHireOrderplantHireOrderItems" Association="MBCPlanningModel.plantHireOrderItems_plantHireOrderplantHireOrderItems">
+            <End Role="plantHireOrder" EntitySet="plantHireOrders" />
+            <End Role="plantHireOrderItem" EntitySet="plantHireOrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK__plantHire__proje__59FA5E80" Association="MBCPlanningModel.FK__plantHire__proje__59FA5E80">
             <End Role="project" EntitySet="projects" />
             <End Role="plantHireOrder" EntitySet="plantHireOrders" />
           </AssociationSet>
@@ -614,7 +624,55 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_projectID">
+        <EntityType Name="plantHireOrder">
+          <Key>
+            <PropertyRef Name="orderNumberID" />
+          </Key>
+          <Property Name="orderNumberID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="projectID" Type="Int32" />
+          <Property Name="title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="vendorLocationID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="dateRequiredOnSite" Type="DateTime" Precision="0" />
+          <Property Name="duration" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="offHireNo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="siteContact" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="originator" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="plantHireOrderItems" Relationship="MBCPlanningModel.plantHireOrderItems_plantHireOrderplantHireOrderItems" FromRole="plantHireOrder" ToRole="plantHireOrderItem" />
+          <NavigationProperty Name="project" Relationship="MBCPlanningModel.FK__plantHire__proje__59FA5E80" FromRole="plantHireOrder" ToRole="project" />
+        </EntityType>
+        <EntityType Name="plantHireOrderItem">
+          <Key>
+            <PropertyRef Name="itemOrderID" />
+          </Key>
+          <Property Name="itemOrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="orderNumberID" Type="Int32" />
+          <Property Name="item" Type="Int32" />
+          <Property Name="quantity" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="unit" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="weeklyrate" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="discount" Type="Single" />
+          <Property Name="hireCost" Type="Int32" />
+          <Property Name="dateRequiredOnSite" Type="DateTime" Precision="0" />
+          <Property Name="duration" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="offHiredNo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="offHireDate" Type="DateTime" Precision="0" />
+          <Property Name="SSMA_TimeStamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="plantHireOrder" Relationship="MBCPlanningModel.plantHireOrderItems_plantHireOrderplantHireOrderItems" FromRole="plantHireOrderItem" ToRole="plantHireOrder" />
+        </EntityType>
+        <Association Name="plantHireOrderItems_plantHireOrderplantHireOrderItems">
+          <End Type="MBCPlanningModel.plantHireOrder" Role="plantHireOrder" Multiplicity="0..1" />
+          <End Type="MBCPlanningModel.plantHireOrderItem" Role="plantHireOrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="plantHireOrder">
+              <PropertyRef Name="orderNumberID" />
+            </Principal>
+            <Dependent Role="plantHireOrderItem">
+              <PropertyRef Name="orderNumberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__plantHire__proje__59FA5E80">
           <End Type="MBCPlanningModel.project" Role="project" Multiplicity="0..1" />
           <End Type="MBCPlanningModel.plantHireOrder" Role="plantHireOrder" Multiplicity="*" />
           <ReferentialConstraint>
@@ -662,29 +720,6 @@
               <MappingFragment StoreEntitySet="itemContents">
                 <ScalarProperty Name="itemCodeID" ColumnName="itemCodeID" />
                 <ScalarProperty Name="description" ColumnName="description" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="plantHireOrders">
-            <EntityTypeMapping TypeName="MBCPlanningModel.plantHireOrder">
-              <MappingFragment StoreEntitySet="plantHireOrder">
-                <ScalarProperty Name="originator" ColumnName="originator" />
-                <ScalarProperty Name="siteContact" ColumnName="siteContact" />
-                <ScalarProperty Name="title" ColumnName="title" />
-                <ScalarProperty Name="orderNumberID" ColumnName="orderNumberID" />
-                <ScalarProperty Name="projectID" ColumnName="projectID" />
-                <ScalarProperty Name="vendorLocationID" ColumnName="vendorLocationID" />
-                <ScalarProperty Name="item" ColumnName="item" />
-                <ScalarProperty Name="quantity" ColumnName="quantity" />
-                <ScalarProperty Name="unit" ColumnName="unit" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="weeklyRate" ColumnName="weeklyRate" />
-                <ScalarProperty Name="discount" ColumnName="discount" />
-                <ScalarProperty Name="hireCost" ColumnName="hireCost" />
-                <ScalarProperty Name="dateRequiredOnSite" ColumnName="dateRequiredOnSite" />
-                <ScalarProperty Name="duration" ColumnName="duration" />
-                <ScalarProperty Name="offHireNo" ColumnName="offHireNo" />
-                <ScalarProperty Name="offHireDate" ColumnName="offHireDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -805,6 +840,41 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="MBCPlanningModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="MBCPlanningModel.Store.sp_upgraddiagrams" />
+          <EntitySetMapping Name="plantHireOrders">
+            <EntityTypeMapping TypeName="MBCPlanningModel.plantHireOrder">
+              <MappingFragment StoreEntitySet="plantHireOrder">
+                <ScalarProperty Name="originator" ColumnName="originator" />
+                <ScalarProperty Name="siteContact" ColumnName="siteContact" />
+                <ScalarProperty Name="offHireNo" ColumnName="offHireNo" />
+                <ScalarProperty Name="duration" ColumnName="duration" />
+                <ScalarProperty Name="dateRequiredOnSite" ColumnName="dateRequiredOnSite" />
+                <ScalarProperty Name="vendorLocationID" ColumnName="vendorLocationID" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="projectID" ColumnName="projectID" />
+                <ScalarProperty Name="orderNumberID" ColumnName="orderNumberID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="plantHireOrderItems">
+            <EntityTypeMapping TypeName="MBCPlanningModel.plantHireOrderItem">
+              <MappingFragment StoreEntitySet="plantHireOrderItems">
+                <ScalarProperty Name="SSMA_TimeStamp" ColumnName="SSMA_TimeStamp" />
+                <ScalarProperty Name="offHireDate" ColumnName="offHireDate" />
+                <ScalarProperty Name="offHiredNo" ColumnName="offHiredNo" />
+                <ScalarProperty Name="duration" ColumnName="duration" />
+                <ScalarProperty Name="dateRequiredOnSite" ColumnName="dateRequiredOnSite" />
+                <ScalarProperty Name="hireCost" ColumnName="hireCost" />
+                <ScalarProperty Name="discount" ColumnName="discount" />
+                <ScalarProperty Name="weeklyrate" ColumnName="weeklyrate" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="unit" ColumnName="unit" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="item" ColumnName="item" />
+                <ScalarProperty Name="orderNumberID" ColumnName="orderNumberID" />
+                <ScalarProperty Name="itemOrderID" ColumnName="itemOrderID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

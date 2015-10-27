@@ -14,13 +14,14 @@ namespace PlanningApp.Controllers
     {
         private MBCPlanningEntities db = new MBCPlanningEntities();
 
-        // GET: plantHireOrders
+        // GET: plantHireOrders1
         public ActionResult Index()
         {
-            return View(db.plantHireOrders.ToList());
+            var plantHireOrders = db.plantHireOrders.Include(p => p.project);
+            return View(plantHireOrders.ToList());
         }
 
-        // GET: plantHireOrders/Details/5
+        // GET: plantHireOrders1/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -35,18 +36,19 @@ namespace PlanningApp.Controllers
             return View(plantHireOrder);
         }
 
-        // GET: plantHireOrders/Create
+        // GET: plantHireOrders1/Create
         public ActionResult Create()
         {
+            ViewBag.projectID = new SelectList(db.projects, "projectID", "siteName");
             return View();
         }
 
-        // POST: plantHireOrders/Create
+        // POST: plantHireOrders1/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "orderNumberID,projectID,vendorLocationID,item,quantity,unit,Description,weeklyRate,discount,hireCost,dateRequiredOnSite,duration,offHireNo,offHireDate")] plantHireOrder plantHireOrder)
+        public ActionResult Create([Bind(Include = "orderNumberID,projectID,vendorLocationID,item,quantity,unit,Description,weeklyRate,discount,hireCost,dateRequiredOnSite,duration,offHireNo,offHireDate,title,siteContact,originator")] plantHireOrder plantHireOrder)
         {
             if (ModelState.IsValid)
             {
@@ -55,10 +57,11 @@ namespace PlanningApp.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.projectID = new SelectList(db.projects, "projectID", "siteName", plantHireOrder.projectID);
             return View(plantHireOrder);
         }
 
-        // GET: plantHireOrders/Edit/5
+        // GET: plantHireOrders1/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -70,15 +73,16 @@ namespace PlanningApp.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.projectID = new SelectList(db.projects, "projectID", "siteName", plantHireOrder.projectID);
             return View(plantHireOrder);
         }
 
-        // POST: plantHireOrders/Edit/5
+        // POST: plantHireOrders1/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "orderNumberID,projectID,vendorLocationID,item,quantity,unit,Description,weeklyRate,discount,hireCost,dateRequiredOnSite,duration,offHireNo,offHireDate")] plantHireOrder plantHireOrder)
+        public ActionResult Edit([Bind(Include = "orderNumberID,projectID,vendorLocationID,item,quantity,unit,Description,weeklyRate,discount,hireCost,dateRequiredOnSite,duration,offHireNo,offHireDate,title,siteContact,originator")] plantHireOrder plantHireOrder)
         {
             if (ModelState.IsValid)
             {
@@ -86,10 +90,11 @@ namespace PlanningApp.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.projectID = new SelectList(db.projects, "projectID", "siteName", plantHireOrder.projectID);
             return View(plantHireOrder);
         }
 
-        // GET: plantHireOrders/Delete/5
+        // GET: plantHireOrders1/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -104,7 +109,7 @@ namespace PlanningApp.Controllers
             return View(plantHireOrder);
         }
 
-        // POST: plantHireOrders/Delete/5
+        // POST: plantHireOrders1/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

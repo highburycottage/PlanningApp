@@ -176,6 +176,9 @@
     <Compile Include="Models\plantHireOrder.cs">
       <DependentUpon>PlanningApp.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\plantHireOrderItem.cs">
+      <DependentUpon>PlanningApp.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\project.cs">
       <DependentUpon>PlanningApp.tt</DependentUpon>
     </Compile>
@@ -201,6 +204,7 @@
       <DependentUpon>PlanningApp.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\ProjectAddressView.cs" />
     <Compile Include="ViewModel\StaffViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -301,6 +305,11 @@
     <Content Include="Views\plantHireOrders\Details.cshtml" />
     <Content Include="Views\plantHireOrders\Edit.cshtml" />
     <Content Include="Views\plantHireOrders\Index.cshtml" />
+    <Content Include="Views\plantHireOrders1\Create.cshtml" />
+    <Content Include="Views\plantHireOrders1\Delete.cshtml" />
+    <Content Include="Views\plantHireOrders1\Details.cshtml" />
+    <Content Include="Views\plantHireOrders1\Edit.cshtml" />
+    <Content Include="Views\plantHireOrders1\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

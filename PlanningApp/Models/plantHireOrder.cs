@@ -14,24 +14,24 @@ namespace PlanningApp.Models
     
     public partial class plantHireOrder
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public plantHireOrder()
+        {
+            this.plantHireOrderItems = new HashSet<plantHireOrderItem>();
+        }
+    
         public int orderNumberID { get; set; }
         public Nullable<int> projectID { get; set; }
+        public string title { get; set; }
         public string vendorLocationID { get; set; }
-        public Nullable<int> item { get; set; }
-        public Nullable<int> quantity { get; set; }
-        public string unit { get; set; }
-        public string Description { get; set; }
-        public Nullable<int> weeklyRate { get; set; }
-        public Nullable<int> discount { get; set; }
-        public Nullable<int> hireCost { get; set; }
         public Nullable<System.DateTime> dateRequiredOnSite { get; set; }
         public string duration { get; set; }
         public string offHireNo { get; set; }
-        public Nullable<System.DateTime> offHireDate { get; set; }
-        public string title { get; set; }
         public string siteContact { get; set; }
         public string originator { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<plantHireOrderItem> plantHireOrderItems { get; set; }
         public virtual project project { get; set; }
     }
 }

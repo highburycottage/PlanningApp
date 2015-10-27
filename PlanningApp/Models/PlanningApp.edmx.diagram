@@ -22,6 +22,8 @@
         <AssociationConnector Association="MBCPlanningModel.projectStaff" ManuallyRouted="false" />
         <AssociationConnector Association="MBCPlanningModel.FK__drawingRe__proje__4316F928" />
         <AssociationConnector Association="MBCPlanningModel.fk_projectID" />
+        <EntityTypeShape EntityType="MBCPlanningModel.plantHireOrderItem" Width="1.5" PointX="3" PointY="9.25" />
+        <AssociationConnector Association="MBCPlanningModel.plantHireOrderItems_plantHireOrderplantHireOrderItems" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
