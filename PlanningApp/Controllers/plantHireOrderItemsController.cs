@@ -10,113 +10,112 @@ using PlanningApp.Models;
 
 namespace PlanningApp.Controllers
 {
-    public class plantHireOrdersController : Controller
+    public class plantHireOrderItemsController : Controller
     {
         private MBCPlanningEntities db = new MBCPlanningEntities();
 
-        // GET: plantHireOrders
+        // GET: plantHireOrderItems
         public ActionResult Index()
         {
-            var plantHireOrders = db.plantHireOrders.Include(p => p.project);
-            return View(plantHireOrders.ToList());
-
+            var plantHireOrderItems = db.plantHireOrderItems.Include(p => p.plantHireOrder);
+            return View(plantHireOrderItems.ToList());
         }
 
-        // GET: plantHireOrders/Details/5
+        // GET: plantHireOrderItems/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            plantHireOrder plantHireOrder = db.plantHireOrders.Find(id);
-            if (plantHireOrder == null)
+            plantHireOrderItem plantHireOrderItem = db.plantHireOrderItems.Find(id);
+            if (plantHireOrderItem == null)
             {
                 return HttpNotFound();
             }
-            return View(plantHireOrder);
+            return View(plantHireOrderItem);
         }
 
-        // GET: plantHireOrders/Create
+        // GET: plantHireOrderItems/Create
         public ActionResult Create()
         {
-            ViewBag.projectID = new SelectList(db.projects, "projectID", "siteName");
+            ViewBag.orderNumberID = new SelectList(db.plantHireOrders, "orderNumberID", "title");
             return View();
         }
 
-        // POST: plantHireOrders/Create
+        // POST: plantHireOrderItems/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "orderNumberID,projectID,title,vendorLocationID,dateRequiredOnSite,duration,offHireNo,siteContact,originator")] plantHireOrder plantHireOrder)
+        public ActionResult Create([Bind(Include = "itemOrderID,orderNumberID,item,quantity,unit,description,weeklyrate,discount,hireCost,dateRequiredOnSite,duration,offHiredNo,offHireDate,SSMA_TimeStamp")] plantHireOrderItem plantHireOrderItem)
         {
             if (ModelState.IsValid)
             {
-                db.plantHireOrders.Add(plantHireOrder);
+                db.plantHireOrderItems.Add(plantHireOrderItem);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.projectID = new SelectList(db.projects, "projectID", "siteName", plantHireOrder.projectID);
-            return View(plantHireOrder);
+            ViewBag.orderNumberID = new SelectList(db.plantHireOrders, "orderNumberID", "title", plantHireOrderItem.orderNumberID);
+            return View(plantHireOrderItem);
         }
 
-        // GET: plantHireOrders/Edit/5
+        // GET: plantHireOrderItems/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            plantHireOrder plantHireOrder = db.plantHireOrders.Find(id);
-            if (plantHireOrder == null)
+            plantHireOrderItem plantHireOrderItem = db.plantHireOrderItems.Find(id);
+            if (plantHireOrderItem == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.projectID = new SelectList(db.projects, "projectID", "siteName", plantHireOrder.projectID);
-            return View(plantHireOrder);
+            ViewBag.orderNumberID = new SelectList(db.plantHireOrders, "orderNumberID", "title", plantHireOrderItem.orderNumberID);
+            return View(plantHireOrderItem);
         }
 
-        // POST: plantHireOrders/Edit/5
+        // POST: plantHireOrderItems/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "orderNumberID,projectID,title,vendorLocationID,dateRequiredOnSite,duration,offHireNo,siteContact,originator")] plantHireOrder plantHireOrder)
+        public ActionResult Edit([Bind(Include = "itemOrderID,orderNumberID,item,quantity,unit,description,weeklyrate,discount,hireCost,dateRequiredOnSite,duration,offHiredNo,offHireDate,SSMA_TimeStamp")] plantHireOrderItem plantHireOrderItem)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(plantHireOrder).State = EntityState.Modified;
+                db.Entry(plantHireOrderItem).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.projectID = new SelectList(db.projects, "projectID", "siteName", plantHireOrder.projectID);
-            return View(plantHireOrder);
+            ViewBag.orderNumberID = new SelectList(db.plantHireOrders, "orderNumberID", "title", plantHireOrderItem.orderNumberID);
+            return View(plantHireOrderItem);
         }
 
-        // GET: plantHireOrders/Delete/5
+        // GET: plantHireOrderItems/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            plantHireOrder plantHireOrder = db.plantHireOrders.Find(id);
-            if (plantHireOrder == null)
+            plantHireOrderItem plantHireOrderItem = db.plantHireOrderItems.Find(id);
+            if (plantHireOrderItem == null)
             {
                 return HttpNotFound();
             }
-            return View(plantHireOrder);
+            return View(plantHireOrderItem);
         }
 
-        // POST: plantHireOrders/Delete/5
+        // POST: plantHireOrderItems/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            plantHireOrder plantHireOrder = db.plantHireOrders.Find(id);
-            db.plantHireOrders.Remove(plantHireOrder);
+            plantHireOrderItem plantHireOrderItem = db.plantHireOrderItems.Find(id);
+            db.plantHireOrderItems.Remove(plantHireOrderItem);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -129,16 +128,5 @@ namespace PlanningApp.Controllers
             }
             base.Dispose(disposing);
         }
-        [HttpGet]
-
-     public JsonResult GetAddresses(int id)
-        {
-            List<plantHireOrder> allAddresses = new List<plantHireOrder>();
-
-            allAddresses = db.plantHireOrders.Where(a => a.projectID.Equals(id)).ToList();
-            return new JsonResult { Data = allAddresses, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-                
-        }
-       
     }
 }

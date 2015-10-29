@@ -6,12 +6,13 @@
 
 <h2>Create A New Order</h2>
 
-
 @using (Html.BeginForm())
 {
+
     @Html.AntiForgeryToken()
 
     <div class="container-fluid">
+
         <div class="row">
             <div class="col-md-2">
 
@@ -24,35 +25,38 @@
                 <input type="submit" value="Create" class="btn btn-default" />
 
             </div>
+
             <div class="col-md-10">
                 <div class="row">
                     <div class="control-label col-md-3">
                         <span class="label label-default form-control">Order Number </span> <br /> <br /> <br />
-                        <span class="label label-default form-control">Title</span> <br /> <br />
-                        <span class="label label-default">Depot Contact</span> <br />
-                        <span class="label label-default">Email Address</span> <br />
+                        <span class="label label-default form-control">Title</span> <br /> <br /> <br />
+                        <span class="label label-default">Depot Contact</span> <br /> <br />
+                        <span class="label label-default">Email Address</span> <br /> <br /> <br />
                         <span class="label label-default">Telephone</span>
                     </div>
                     <div class="col-md-3">
-                        @Html.EditorFor(model => model.orderNumberID, new { htmlAttributes = new { @class = "form-control" } }) <br /> @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control" } }) <span class="label label-default">Label</span> <span class="label label-default">Label</span>
+                        @Html.EditorFor(model => model.orderNumberID, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } }) <br />
+                        @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control" } }) <br />
+                        @Html.EditorFor(model => model.vendorLocationID, new { htmlAttributes = new { @class = "form-control" } }) <br />
+                        @Html.EditorFor(model => model.vendorLocationID, new { htmlAttributes = new { @class = "form-control" } }) <br />
+                        @Html.EditorFor(model => model.siteContact, new { htmlAttributes = new { @class = "form-control" } }) <br />
                     </div>
                     <div class="col-md-3">
-                        <span class="label label-default form-control">Project Name</span><br /> <br /><br />
-                        <span class="label label-default form-control">Site Address</span><br /> <br /> <br />
-                        <span class="label label-default form-control">Address cont</span><br /> <br />
-                        <span class="label label-default form-control">Address cont</span><br /> <br /> <br />
-                        <span class="label label-default form-control">Post Code</span><br /> <br /><br />
-                        <span class="label label-default form-control">Site Contact</span><br /><br />
+                        <span class="label label-default form-control">Project Name</span><br /> <br />
+                        <span class="label label-default form-control">Site Address</span><br /> <br /> <br /> <br />
+                        <span class="label label-default form-control">Post Code</span><br /> <br />
+                        <span class="label label-default form-control">Site Contact</span><br /> <br /> <br />
                         <span class="label label-default form-control">Originator</span>
                     </div>
-                    <div class="col-md-3">
-                        @Html.DropDownList("projectID", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.LabelFor(model => model.project.siteAddress1, new { htmlAttributes = new { @class = "form-control" } })<br />
-                        @Html.LabelFor(model => model.project.siteAddress2, new { htmlAttributes = new { @class = "form-control" } })<br />
-                        @Html.LabelFor(model => model.project.siteAddress3, new { htmlAttributes = new { @class = "form-control" } })<br />
-                        @Html.LabelFor(model => model.project.sitePostCode, new { htmlAttributes = new { @class = "form-control" } }) <br />
+                    <div class="col-md-3" id="Addresses">
+                        @Html.DropDownList("projectID", null, String.Empty, htmlAttributes: new { @class = "form-control" })
+                        <input type="text" id="address1" value="" /><br />
+                        <input type="text" id="address2" value="" /><br />
+                        <input type="text" id="address3" value="" /><br />
+                        <input type="text" id="postCode" value="" /><br /> <br />
                         @Html.EditorFor(model => model.siteContact, new { htmlAttributes = new { @class = "form-control" } }) <br />
-                        @Html.EditorFor(model => model.originator, new { htmlAttributes = new { @class = "form-control" } })<br /><br />
+                        @Html.EditorFor(model => model.originator, new { htmlAttributes = new { @class = "form-control" } })  <br />
                     </div>
                 </div>
                 <div class="row">
@@ -62,86 +66,14 @@
                     </div>
                     <div class="col-md-10">
                         <br />
-                        <span class="form-control" @Html.EditorFor(model => model.title)></span>
+                        <span class="form-control"></span>
                     </div>
                 </div>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                @Html.Label("Item", htmlAttributes: new { @class = "control-label col-md-2" })
-                            </th>
-                            <th>
-                                @Html.Label("Quantity", htmlAttributes: new { @class = "control-label col-md-2" })
-                            </th>
-                            <th>
-                                @Html.Label("Unit", htmlAttributes: new { @class = "control-label col-md-2" })
-                            </th>
-                            <th>
-                                @Html.Label("Description", htmlAttributes: new { @class = "control-label col-md-8" })
-                            </th>
-                            <th>
-                                @Html.Label("Weekly Rate", htmlAttributes: new { @class = "control-label col-md-4" })
-                            </th>
-                            <th>
-                                @Html.Label("Discount %", htmlAttributes: new { @class = "control-label col-md-4" })
-                            </th>
-                            <th>
-                                @Html.Label("Hire Cost £", htmlAttributes: new { @class = "control-label col-md-4" })
-                            </th>
-                            <th>
-                                Date Req'd <br />
-                                on site
-                            </th>
-                            <th>
-                                Duration <br />
-                                approx
-                            </th>
-                            <th>
-                                @Html.Label("Off Hired", htmlAttributes: new { @class = "control-label col-md-8" })
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                @Html.EditorFor(model => model.item, new { htmlAttributes = new { @class = "control-label col-md-4" } })
-                            </td>
-                            <td>
-                                @Html.EditorFor(model => model.quantity, new { htmlAttributes = new { @class = "control-label col-md-8" } })
-                            </td>
-                            <td>
-                                @Html.EditorFor(model => model.unit, new { htmlAttributes = new { @class = "control-label col-md-8" } })
-                            </td>
-                            <td>
-                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "control-label col-md-24" } })
-                            </td>
-                            <td>
-                                @Html.EditorFor(model => model.weeklyRate, new { htmlAttributes = new { @class = "control-label col-md-8" } })
-                            </td>
-                            <td>
-                                @Html.EditorFor(model => model.discount, new { htmlAttributes = new { @class = "control-label col-md-8" } })
-                            </td>
-                            <td>
-                                @Html.EditorFor(model => model.hireCost, new { htmlAttributes = new { @class = "control-label col-md-8" } })
-                            </td>
-                            <td>
-                                @Html.EditorFor(model => model.dateRequiredOnSite, new { htmlAttributes = new { @class = "control-label col-md-8" } })
-                            </td>
-                            <td>
-                                @Html.EditorFor(model => model.duration, new { htmlAttributes = new { @class = "control-label col-md-8" } })
-                            </td>
-                            <td>
-                                @Html.EditorFor(model => model.offHireDate, new { htmlAttributes = new { @class = "control-label col-md-8" } })
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>
     <hr />
-<div>
+    <div>
     </div>
 
 }
@@ -152,4 +84,72 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    @*<script type="text/javascript">
+                     $("select#projectID").change(function (evt) {
+
+                     {
+                         alert("adfad");
+                         var selectedID = $("#projectID option:selected").val();
+                         $.getJSON("../plantHireOrders/GetAddresses", { ID: selectedID }, function (data) {
+                             //depending on how your json data is structred, just populate your textbox and area here
+                              $("#address1").val(data[0]);
+                              $("#address2").val(data);
+                              $("#address3").val(data);
+                              $("#postCode").val(data);
+                         });
+
+                     }
+                 });
+
+        </script>*@
+
+    @*<script>
+            jQuery(document).ready(function () {
+                $("#projectID").change(function () {
+                    var ServiceURL = "../plantHireOrdersController/GetAddresses?id=" + id;
+                    var content = '';
+                    $.support.cors = true;
+                    $.ajax({
+                        type: 'GET',
+                        url: ServiceURL,
+                        async: true,
+                        cache: false,
+                        crossDomain: true,
+                        contentType: "application/json; charset=utf-8",
+                        dataType: 'json',
+                        error: function (xhr, err) {
+
+                        },
+                        success: function (result, status) {
+                            $("#address1").val(result.Value);
+                        }
+
+                    });
+                });
+            });
+
+        </script>*@
+    <script>
+        $(document).ready(function () {
+            $("#projectID").change(function () {
+                $.ajax({
+                    url: "@Url.Action("GetAddresses","plantHireOrders")",
+                    data: "json",
+                    type: "GET",
+                    datatype: "",
+                    success: function (data) {
+                        loadData(data);
+                    },
+                    error: function () {
+                        alert("Failed! Please try again.");
+                    }
+                });
+            });
+            function loadData(data) {
+                $("#address1").val(data.Value)
+            };
+        });
+    </script>
+
 }

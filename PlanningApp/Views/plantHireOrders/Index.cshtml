@@ -12,31 +12,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.projectID)
+            Order Number
         </th>
         <th>
             @Html.DisplayNameFor(model => model.vendorLocationID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.item)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.quantity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.unit)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.weeklyRate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.discount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.hireCost)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.dateRequiredOnSite)
@@ -48,7 +27,13 @@
             @Html.DisplayNameFor(model => model.offHireNo)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.offHireDate)
+            @Html.DisplayNameFor(model => model.siteContact)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.originator)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.project.siteName)
         </th>
         <th></th>
     </tr>
@@ -56,31 +41,10 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.projectID)
+            @Html.DisplayFor(modelItem => item.orderNumberID)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.vendorLocationID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.item)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.quantity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.unit)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.weeklyRate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.discount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.hireCost)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.dateRequiredOnSite)
@@ -92,7 +56,13 @@
             @Html.DisplayFor(modelItem => item.offHireNo)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.offHireDate)
+            @Html.DisplayFor(modelItem => item.siteContact)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.originator)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.project.siteName)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.orderNumberID }) |

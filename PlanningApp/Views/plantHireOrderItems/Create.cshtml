@@ -1,0 +1,125 @@
+﻿@model List<PlanningApp.Models.plantHireOrderItem>
+
+
+<div style="width:1200px; padding:5px; background-color:white;">
+    @using (Html.BeginForm("BulkData", "Save", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        if (ViewBag.Message != null)
+        {
+            <div style="border:solid 1px green">
+                @ViewBag.Message
+            </div>
+        }
+        <br />
+        <br />
+        <div><a href="#" id="addNew">Add New</a></div>
+        <br />
+        <br />
+
+        <table id="dataTable" class="table">
+            <tr>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Unit</th>
+                <th>Description</th>
+                <th>Weekly<br />Rate £</th>
+                <th>Discount &</th>
+                <th>Hire <br />Cost £</th>
+                <th>Date Rqd<br />On Site</th>
+                <th>Duration</th>
+                <th>Off Hire</th>
+                <th>off Hire #</th>
+                <th></th>
+            </tr>
+            @if (Model != null && Model.Count > 0)
+            {
+                int j = 0;
+                foreach (var i in Model)
+                {
+                    <tr style="border:1px solid black">
+                        <td>@Html.TextBoxFor(a => a[j].itemOrderID)</td>
+                        <td>@Html.TextBoxFor(a => a[j].quantity)</td>
+                        <td>@Html.TextBoxFor(a => a[j].unit)</td>
+                        <td>@Html.TextBoxFor(a => a[j].description)</td>
+                        <td>@Html.TextBoxFor(a => a[j].weeklyrate)</td>
+                        <td>@Html.TextBoxFor(a => a[j].discount)</td>
+                        <td>@Html.TextBoxFor(a => a[j].hireCost)</td>
+                        <td>@Html.TextBoxFor(a => a[j].dateRequiredOnSite)</td>
+                        <td>@Html.TextBoxFor(a => a[j].duration)</td>
+                        <td>@Html.TextBoxFor(a => a[j].offHireDate)</td>
+                        <td>@Html.TextBoxFor(a => a[j].offHiredNo)</td>
+
+                        <td>
+                            @if (j > 0)
+                            {
+                                <a href="#" class="remove">Remove</a>
+                            }
+                        </td>
+                    </tr>
+                    j++;
+                }
+            }
+        </table>
+        <input type="submit" value="Save Bulk Data" />
+        <br />
+            <br />
+    }
+</div>
+
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script language="javascript">
+        $(document).ready(function () {
+
+            //1. Add new row
+            $("#addNew").click(function (e) {
+                e.preventDefault();
+                var $tableBody = $("#dataTable");
+                var $trLast = $tableBody.find("tr:last");
+                var $trNew = $trLast.clone();
+
+                var suffix = $trNew.find(':input:first').attr('name').match(/\d+/);
+                $trNew.find("td:last").html('<a href="#" class="remove">Remove</a>');
+                $.each($trNew.find(':input'), function (i, val) {
+                    // Replaced Name
+                    var oldN = $(this).attr('name');
+                    var newN = oldN.replace('[' + suffix + ']', '[' + (parseInt(suffix) + 1) + ']');
+                    $(this).attr('name', newN);
+                    //Replaced value
+                    var type = $(this).attr('type');
+                    if (type.toLowerCase() == "text") {
+                        $(this).attr('value', '');
+                    }
+
+                    // If you have another Type then replace with default value
+                    $(this).removeClass("input-validation-error");
+
+                });
+                $trLast.after($trNew);
+
+                // Re-assign Validation
+                var form = $("form")
+                    .removeData("validator")
+                    .removeData("unobtrusiveValidation");
+                $.validator.unobtrusive.parse(form);
+            });
+
+            // 2. Remove
+            $('a.remove').live("click", function (e) {
+                e.preventDefault();
+                $(this).parent().parent().remove();
+            });
+
+        });
+    </script>
+
+}
