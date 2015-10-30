@@ -338,7 +338,7 @@
     <Content Include="Views\drawingRegisters\Details.cshtml" />
     <Content Include="Views\drawingRegisters\Edit.cshtml" />
     <Content Include="Views\drawingRegisters\Index.cshtml" />
-    <Content Include="Views\plantHireOrders\Create.cshtml" />
+    <Content Include="Views\plantHireOrders\Create temp.cshtml" />
     <Content Include="Views\plantHireOrders\Delete.cshtml" />
     <Content Include="Views\plantHireOrders\Details.cshtml" />
     <Content Include="Views\plantHireOrders\Edit.cshtml" />
@@ -348,6 +348,9 @@
     <Content Include="Views\plantHireOrderItems\Details.cshtml" />
     <Content Include="Views\plantHireOrderItems\Edit.cshtml" />
     <Content Include="Views\plantHireOrderItems\Index.cshtml" />
+    <Content Include="Views\Shared\_plantHireOrdersCreate.cshtml" />
+    <Content Include="Views\Shared\_PlantHireOrderItems.cshtml" />
+    <Content Include="Views\plantHireOrders\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

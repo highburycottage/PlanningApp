@@ -1,0 +1,121 @@
+﻿@model List<PlanningApp.Models.plantHireOrderItem>
+<div style="width:1200px; padding:5px; background-color:white;">
+    @using (Html.BeginForm("BulkData", "Save", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        if (ViewBag.Message != null)
+        {
+            <div style="border:solid 1px green">
+                @ViewBag.Message
+            </div>
+        }
+        <br />
+        <div><a href="#" id="addNew">Add New Items</a></div>
+        <br />
+
+        <table id="dataTable" class="table">
+            <tr>
+                <th><span class="label label-default form-control">Item</span></th>
+                <th><span class="label label-default form-control">Quantity</span></th>
+                <th><span class="label label-default form-control">Unit</span></th>
+                <th><span class="label label-default form-control">Description</span></th>
+                <th><span class="label label-default form-control">Weekly Rate £</span></th>
+                <th><span class="label label-default form-control">Discount &</span></th>
+                <th><span class="label label-default form-control">Hire Cost £</span></th>
+                <th><span class="label label-default form-control">Date Rqd On Site</span></th>
+                <th><span class="label label-default form-control">Duration</span></th>
+                <th><span class="label label-default form-control">Off Hire</span></th>
+                <th><span class="label label-default form-control">off Hire #</span></th>
+                <th></th>
+            </tr>
+            @if (Model != null && Model.Count > 0)
+            {
+                int j = 0;
+                foreach (var i in Model)
+                {
+                    <tr style="border:1px solid black">
+                        <td>@Html.TextBoxFor(a => a[j].itemOrderID)</td>
+                        <td>@Html.TextBoxFor(a => a[j].quantity)</td>
+                        <td>@Html.TextBoxFor(a => a[j].unit)</td>
+                        <td>@Html.TextBoxFor(a => a[j].description)</td>
+                        <td>@Html.TextBoxFor(a => a[j].weeklyrate)</td>
+                        <td>@Html.TextBoxFor(a => a[j].discount)</td>
+                        <td>@Html.TextBoxFor(a => a[j].hireCost)</td>
+                        <td>@Html.TextBoxFor(a => a[j].dateRequiredOnSite)</td>
+                        <td>@Html.TextBoxFor(a => a[j].duration)</td>
+                        <td>@Html.TextBoxFor(a => a[j].offHireDate)</td>
+                        <td>@Html.TextBoxFor(a => a[j].offHiredNo)</td>
+
+                        <td>
+                            @if (j > 0)
+                            {
+                                <a href="#" class="remove">Remove</a>
+                            }
+                        </td>
+                    </tr>
+                    j++;
+                }
+            }
+        </table>
+        <input type="submit" value="Save Bulk Data" />
+        <br />
+        <br />
+    }
+</div>
+
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script language="javascript">
+        $(document).ready(function () {
+
+            //1. Add new row
+            $("#addNew").click(function (e) {
+                e.preventDefault();
+                var $tableBody = $("#dataTable");
+                var $trLast = $tableBody.find("tr:last");
+                var $trNew = $trLast.clone();
+
+                var suffix = $trNew.find(':input:first').attr('name').match(/\d+/);
+                $trNew.find("td:last").html('<a href="#" class="remove">Remove</a>');
+                $.each($trNew.find(':input'), function (i, val) {
+                    // Replaced Name
+                    var oldN = $(this).attr('name');
+                    var newN = oldN.replace('[' + suffix + ']', '[' + (parseInt(suffix) + 1) + ']');
+                    $(this).attr('name', newN);
+                    //Replaced value
+                    var type = $(this).attr('type');
+                    if (type.toLowerCase() == "text") {
+                        $(this).attr('value', '');
+                    }
+
+                    // If you have another Type then replace with default value
+                    $(this).removeClass("input-validation-error");
+
+                });
+                $trLast.after($trNew);
+
+                // Re-assign Validation
+                var form = $("form")
+                    .removeData("validator")
+                    .removeData("unobtrusiveValidation");
+                $.validator.unobtrusive.parse(form);
+            });
+
+            // 2. Remove
+            $('a.remove').live("click", function (e) {
+                e.preventDefault();
+                $(this).parent().parent().remove();
+            });
+
+        });
+    </script>
+
+}

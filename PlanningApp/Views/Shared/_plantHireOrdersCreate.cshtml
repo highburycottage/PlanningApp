@@ -1,0 +1,85 @@
+﻿@model PlanningApp.Models.plantHireOrder
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create A New Order</h2>
+
+@using (Html.BeginForm())
+{
+
+    @Html.AntiForgeryToken()
+
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-2">
+
+                <input type="submit" value="Email" class="btn btn-default" />
+                <br />
+                <br />
+                <input type="submit" value="Print" class="btn btn-default" />
+                <br />
+                <br />
+                <input type="submit" value="Create" class="btn btn-default" />
+
+            </div>
+
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="control-label col-md-3">
+                        <span class="label label-default form-control">Order Number </span> <br /> <br /> <br />
+                        <span class="label label-default form-control">Title</span> <br /> <br /> <br />
+                        <span class="label label-default">Depot Contact</span> <br /> <br />
+                        <span class="label label-default">Email Address</span> <br /> <br /> <br />
+                        <span class="label label-default">Telephone</span>
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.orderNumberID, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } }) <br />
+                        @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control" } }) <br />
+                        @Html.EditorFor(model => model.vendorLocationID, new { htmlAttributes = new { @class = "form-control" } }) <br />
+                        @Html.EditorFor(model => model.vendorLocationID, new { htmlAttributes = new { @class = "form-control" } }) <br />
+                        @Html.EditorFor(model => model.siteContact, new { htmlAttributes = new { @class = "form-control" } }) <br />
+                    </div>
+                    <div class="col-md-3">
+                        <span class="label label-default form-control">Project Name</span><br /> <br />
+                        <span class="label label-default form-control">Site Address</span><br /> <br /> <br /> <br />
+                        <span class="label label-default form-control">Post Code</span><br /> <br />
+                        <span class="label label-default form-control">Site Contact</span><br /> <br /> <br />
+                        <span class="label label-default form-control">Originator</span>
+                    </div>
+                    <div class="col-md-3" id="Addresses">
+                        @Html.DropDownList("projectID", null, String.Empty, htmlAttributes: new { @class = "form-control" })
+                        <input type="text" id="address1" value="" /><br />
+                        <input type="text" id="address2" value="" /><br />
+                        <input type="text" id="address3" value="" /><br />
+                        <input type="text" id="postCode" value="" /><br /> <br />
+                        @Html.EditorFor(model => model.siteContact, new { htmlAttributes = new { @class = "form-control" } }) <br />
+                        @Html.EditorFor(model => model.originator, new { htmlAttributes = new { @class = "form-control" } })  <br />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <br />
+                        <span class="label label-default form-control">Vendor Address</span>
+                    </div>
+                    <div class="col-md-10">
+                        <br />
+                        <span class="form-control"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+    </div>
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+
+}
